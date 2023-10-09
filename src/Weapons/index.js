@@ -8,6 +8,7 @@ import {
   Button,
   Image,
   Input,
+  Text,
 } from "@mantine/core";
 import Header from "../Header";
 import { Link, useNavigate } from "react-router-dom";
@@ -207,6 +208,9 @@ function Weapons() {
               return (
                 <Grid.Col key={weapon._id} lg={4} md={6} sm={6} xs={6}>
                   <Card withBorder shadow="sm" p="20px" mx={"auto"}>
+                    <Text fs="italic" size="xl">
+                      Release On: {weapon.release_date}
+                    </Text>
                     <Image
                       src={"http://localhost:5000/" + weapon.image}
                       width="300px"
@@ -214,10 +218,14 @@ function Weapons() {
                       mx={"auto"}
                     />
                     <Space h="20px" />
-                    <Title order={5}>{weapon.name}</Title>
+                    <Title order={3}>{weapon.name}</Title>
                     <Group position="apart" spacing="5px">
-                      <Badge color="green">{weapon.quality}</Badge>
-                      <Badge color="yellow">{weapon.weapontype.name}</Badge>
+                      <Badge color="yellow" size="lg">
+                        {weapon.quality}
+                      </Badge>
+                      <Badge color="red" size="lg">
+                        {weapon.weapontype.name}
+                      </Badge>
                     </Group>
                     <Space h="20px" />
                     <Button

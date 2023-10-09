@@ -46,7 +46,8 @@ export default function Favorites() {
           <thead>
             <tr>
               <th>Users</th>
-              <th>Characters/Weapons</th>
+              <th>Characters</th>
+              <th>Weapons</th>
               <th>Date Added</th>
               <th>Actions</th>
             </tr>
@@ -63,6 +64,35 @@ export default function Favorites() {
                       <td width={"1000px"}>
                         {o.characters
                           ? o.characters.map((favorite, index) => (
+                              <div key={index}>
+                                <Group>
+                                  {favorite.image && favorite.image !== "" ? (
+                                    <>
+                                      <Image
+                                        src={
+                                          "http://localhost:5000/" +
+                                          favorite.image
+                                        }
+                                        width="100px"
+                                      />
+                                    </>
+                                  ) : (
+                                    <Image
+                                      src={
+                                        "https://www.aachifoods.com/templates/default-new/images/no-prd.jpg"
+                                      }
+                                      width="100px"
+                                    />
+                                  )}
+                                  <p>{favorite.name}</p>
+                                </Group>
+                              </div>
+                            ))
+                          : null}
+                      </td>
+                      <td width={"1000px"}>
+                        {o.weapons
+                          ? o.weapons.map((favorite, index) => (
                               <div key={index}>
                                 <Group>
                                   {favorite.image && favorite.image !== "" ? (

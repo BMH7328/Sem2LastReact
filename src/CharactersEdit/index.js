@@ -39,6 +39,7 @@ function CharactersEdit() {
   const [birthday, setBirthday] = useState("");
   const [releaseDate, setReleaseDate] = useState("");
   const [image, setImage] = useState("");
+  const [detail, setDetail] = useState("");
   const [uploading, setUploading] = useState(false);
   const { isLoading } = useQuery({
     queryKey: ["character", id],
@@ -52,6 +53,7 @@ function CharactersEdit() {
       setBirthday(data.birthday);
       setReleaseDate(data.release_date);
       setImage(data.image);
+      setDetail(data.detail);
     },
   });
   const { data: elements } = useQuery({
@@ -136,6 +138,7 @@ function CharactersEdit() {
         birthday: birthday,
         release_date: releaseDate,
         image: image,
+        detail: detail,
       }),
       token: currentUser ? currentUser.token : "",
     });
@@ -290,6 +293,17 @@ function CharactersEdit() {
               description="The release date of the character"
               withAsterisk
               onChange={(event) => setReleaseDate(event.target.value)}
+            />
+          </Grid.Col>
+          <Grid.Col>
+            <TextInput
+              value={detail}
+              placeholder="Enter the character details here"
+              label="Detail"
+              description="The detail of the character"
+              withAsterisk
+              maxRows={10}
+              onChange={(event) => setDetail(event.target.value)}
             />
           </Grid.Col>
         </Grid>

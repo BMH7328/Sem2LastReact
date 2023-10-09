@@ -328,8 +328,6 @@ function Characters() {
                       component={Link}
                       to={"/views/" + character._id}
                       color="blue"
-                      size="xs"
-                      radius="50px"
                     >
                       View More...
                     </Button>
