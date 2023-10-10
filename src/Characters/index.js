@@ -278,7 +278,7 @@ function Characters() {
         {currentCharacters
           ? currentCharacters.map((character) => {
               return (
-                <Grid.Col key={character._id} lg={4} md={6} sm={6} xs={6}>
+                <Grid.Col key={character._id} lg={4} md={6} sm={6} xs={12}>
                   <Card withBorder shadow="sm" p="20px" mx={"auto"}>
                     <Image
                       src={"http://localhost:5000/" + character.image}

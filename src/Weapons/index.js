@@ -207,7 +207,7 @@ function Weapons() {
         {currentWeapons
           ? currentWeapons.map((weapon) => {
               return (
-                <Grid.Col key={weapon._id} lg={4} md={6} sm={6} xs={6}>
+                <Grid.Col key={weapon._id} lg={4} md={6} sm={6} xs={12}>
                   <Card withBorder shadow="sm" p="20px" mx={"auto"}>
                     <Text fs="italic" size="xl">
                       Release On: {weapon.release_date}

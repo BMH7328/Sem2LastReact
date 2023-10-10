@@ -149,8 +149,6 @@ export default function Favorites() {
           </Button>
         </Group>
       </Container>
-      <Space h="50px" />
-      <Footer />
     </>
   );
 }
