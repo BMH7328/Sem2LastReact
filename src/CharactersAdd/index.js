@@ -96,7 +96,7 @@ function CharactersAdd() {
         title: "Character Added",
         color: "green",
       });
-      navigate("/");
+      navigate("/characters");
     },
     onError: (error) => {
       notifications.show({

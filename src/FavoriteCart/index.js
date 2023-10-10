@@ -5,6 +5,7 @@ import {
   removeItemsFromCart,
 } from "../api/cart";
 import Header from "../Header";
+import Footer from "../Footer";
 import { useState, useMemo } from "react";
 import { notifications } from "@mantine/notifications";
 import { Link } from "react-router-dom";
@@ -204,6 +205,8 @@ export default function Cart() {
           </Button>
         </Group>
       </Container>
+      <Space h="50px" />
+      <Footer />
     </>
   );
 }

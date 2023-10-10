@@ -16,7 +16,7 @@ import Regions from "./Regions";
 import RegionsAdd from "./RegionsAdd";
 import Elements from "./Elements";
 import ElementsAdd from "./ElementsAdd";
-// import View from "./View";
+import View from "./View";
 import Login from "./Login";
 import Signup from "./Signup";
 
@@ -40,7 +40,7 @@ function App() {
         <Route path="/regions_add" element={<RegionsAdd />} />
         <Route path="/elements" element={<Elements />} />
         <Route path="/elements_add" element={<ElementsAdd />} />
-        {/* <Route path="/views/:id" element={<View />} /> */}
+        <Route path="/views/:id" element={<View />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>

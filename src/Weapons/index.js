@@ -11,6 +11,7 @@ import {
   Text,
 } from "@mantine/core";
 import Header from "../Header";
+import Footer from "../Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useMemo, useEffect } from "react";
 import { notifications } from "@mantine/notifications";
@@ -315,7 +316,7 @@ function Weapons() {
           );
         })}
       </div>
-      <Space h="40px" />
+      <Footer />
     </>
   );
 }

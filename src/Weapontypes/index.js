@@ -6,6 +6,7 @@ import { fetchWeapontypes, deleteWeapontype } from "../api/weapontypes";
 import { notifications } from "@mantine/notifications";
 import { useCookies } from "react-cookie";
 import Header from "../Header";
+import Footer from "../Footer";
 
 export default function Weapontypes() {
   const [cookies] = useCookies(["currentUser"]);
@@ -115,18 +116,9 @@ export default function Weapontypes() {
             </Group>
           )}
         </Table>
-        <Group position="center">
-          <Button
-            component={Link}
-            to="/"
-            variant="subtle"
-            size="xs"
-            color="gray"
-          >
-            Go back to Home
-          </Button>
-        </Group>
       </Container>
+      <Space h="50px" />
+      <Footer />
     </>
   );
 }

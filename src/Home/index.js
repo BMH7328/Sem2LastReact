@@ -1,18 +1,16 @@
-import { Container, Space, Group } from "@mantine/core";
+import { BackgroundImage, Image } from "@mantine/core";
 import Header from "../Header";
-
-import Elements from "../Elements";
-import Characters from "../Characters";
+import Footer from "../Footer";
 
 function Home() {
   return (
     <>
-      <Header title="Genshin Wiki Replica" page="home" />
-      <Container size="100%">
-        <Space h="50px" />
+      <div>
+        <Header title="Genshin Wiki Replica" page="home" />
 
-        <Space h="30px" />
-      </Container>
+        <Image src="/image/Aether.mondstadt.jpg" />
+      </div>
+      <Footer />
     </>
   );
 }

@@ -116,7 +116,7 @@ function CharactersEdit() {
         title: "Character Edited",
         color: "green",
       });
-      navigate("/");
+      navigate("/characters");
     },
     onError: (error) => {
       notifications.show({

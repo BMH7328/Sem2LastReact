@@ -10,6 +10,7 @@ import {
   Input,
 } from "@mantine/core";
 import Header from "../Header";
+import Footer from "../Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useMemo, useEffect } from "react";
 import { notifications } from "@mantine/notifications";
@@ -325,11 +326,33 @@ function Characters() {
                     <Space h="20px" />
                     <Button
                       fullWidth
-                      component={Link}
-                      to={"/views/" + character._id}
-                      color="blue"
+                      onClick={() => {
+                        // pop a messsage if user is not logged in
+                        if (cookies && cookies.currentUser) {
+                          navigate("/views/" + character._id);
+                        } else {
+                          notifications.show({
+                            title: "Please login to proceed",
+                            message: (
+                              <>
+                                <Button
+                                  color="red"
+                                  onClick={() => {
+                                    navigate("/login");
+                                    notifications.clean();
+                                  }}
+                                >
+                                  Click here to login
+                                </Button>
+                              </>
+                            ),
+                            color: "red",
+                          });
+                        }
+                      }}
                     >
-                      View More...
+                      {" "}
+                      View More Info...
                     </Button>
                     {isAdmin && (
                       <>
@@ -389,6 +412,7 @@ function Characters() {
         })}
       </div>
       <Space h="40px" />
+      <Footer />
     </>
   );
 }

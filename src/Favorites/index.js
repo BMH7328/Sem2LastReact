@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { Container, Table, Button, Space, Image, Group } from "@mantine/core";
 import { Link } from "react-router-dom";
 import Header from "../Header";
+import Footer from "../Footer";
 import { fetchFavorites, deleteFavorites } from "../api/favorite";
 import { notifications } from "@mantine/notifications";
 import { useCookies } from "react-cookie";
@@ -144,10 +145,12 @@ export default function Favorites() {
         </Table>
         <Group position="center">
           <Button component={Link} to="/">
-            Continue Checking
+            Continue to check more information...
           </Button>
         </Group>
       </Container>
+      <Space h="50px" />
+      <Footer />
     </>
   );
 }
