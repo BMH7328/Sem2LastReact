@@ -9,6 +9,7 @@ import {
   Group,
   Image,
   Grid,
+  Textarea,
 } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { Link, useNavigate } from "react-router-dom";
@@ -275,13 +276,13 @@ function CharactersAdd() {
             />
           </Grid.Col>
           <Grid.Col>
-            <TextInput
+            <Textarea
               value={detail}
               placeholder="Enter the character details here"
               label="Detail"
               description="The detail of the character"
               withAsterisk
-              maxRows={10}
+              minRows={10}
               onChange={(event) => setDetail(event.target.value)}
             />
           </Grid.Col>
