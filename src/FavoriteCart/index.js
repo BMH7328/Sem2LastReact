@@ -142,7 +142,7 @@ export default function Cart() {
                             <>
                               <Image
                                 src={"http://localhost:5000/" + cart.image}
-                                width="100px"
+                                width="200px"
                               />
                             </>
                           ) : (

@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import Header from "../Header";
+import Footer from "../Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { notifications } from "@mantine/notifications";
 import { useMutation } from "@tanstack/react-query";
@@ -136,8 +137,9 @@ function ElementAdd() {
             Go back to Home
           </Button>
         </Group>
-        <Space h="100px" />
+        <Space h="50px" />
       </Container>
+      <Footer />
     </>
   );
 }

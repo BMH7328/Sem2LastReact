@@ -73,7 +73,7 @@ export default function Favorites() {
                                           "http://localhost:5000/" +
                                           favorite.image
                                         }
-                                        width="100px"
+                                        width="200px"
                                       />
                                     </>
                                   ) : (
@@ -102,7 +102,7 @@ export default function Favorites() {
                                           "http://localhost:5000/" +
                                           favorite.image
                                         }
-                                        width="100px"
+                                        width="200px"
                                       />
                                     </>
                                   ) : (
@@ -148,6 +148,8 @@ export default function Favorites() {
           </Button>
         </Group>
       </Container>
+      <Space h="50px" />
+      <Footer />
     </>
   );
 }

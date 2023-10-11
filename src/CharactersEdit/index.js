@@ -25,6 +25,7 @@ import { useCookies } from "react-cookie";
 import { fetchElements } from "../api/elements";
 import { fetchRegions } from "../api/regions";
 import { fetchWeapontypes } from "../api/weapontypes";
+import Footer from "../Footer";
 
 function CharactersEdit() {
   const [cookies] = useCookies(["currentUser"]);
@@ -166,161 +167,170 @@ function CharactersEdit() {
   };
 
   return (
-    <Container>
-      <Space h="50px" />
-      <Title order={2} align="center">
-        Edit Character
-      </Title>
-      <Space h="50px" />
-      <Card withBorder shadow="md" p="20px">
-        <Grid gutter={20}>
-          <Grid.Col span={6}>
-            <TextInput
-              value={name}
-              placeholder="Enter the character name here"
-              label="Name"
-              description="The name of the character"
-              withAsterisk
-              onChange={(event) => setName(event.target.value)}
-            />
-          </Grid.Col>
-          <Space h="20px" />
-          <Grid.Col span={6}>
-            <TextInput
-              value={quality}
-              placeholder="Enter the character quality here"
-              label="Quality"
-              description="The quality of the character"
-              withAsterisk
-              onChange={(event) => setQuality(event.target.value)}
-            />
-          </Grid.Col>
-          <Space h="20px" />
-          <Grid.Col>
-            {image && image !== "" ? (
-              <>
-                <Image src={"http://localhost:5000/" + image} width="100%" />
-                <Button color="dark" mt="15px" onClick={() => setImage("")}>
-                  Remove Image
-                </Button>
-              </>
-            ) : (
-              <Dropzone
-                mutiple={false}
-                accept={IMAGE_MIME_TYPE}
-                onDrop={(files) => {
-                  handleImageUpload(files);
+    <>
+      <Container>
+        <Space h="50px" />
+        <Title order={2} align="center">
+          Edit Character
+        </Title>
+        <Space h="50px" />
+        <Card withBorder shadow="md" p="20px">
+          <Grid gutter={20}>
+            <Grid.Col span={6}>
+              <TextInput
+                value={name}
+                placeholder="Enter the character name here"
+                label="Name"
+                description="The name of the character"
+                withAsterisk
+                onChange={(event) => setName(event.target.value)}
+              />
+            </Grid.Col>
+            <Space h="20px" />
+            <Grid.Col span={6}>
+              <TextInput
+                value={quality}
+                placeholder="Enter the character quality here"
+                label="Quality"
+                description="The quality of the character"
+                withAsterisk
+                onChange={(event) => setQuality(event.target.value)}
+              />
+            </Grid.Col>
+            <Space h="20px" />
+            <Grid.Col>
+              {image && image !== "" ? (
+                <>
+                  <Image src={"http://localhost:5000/" + image} width="100%" />
+                  <Button color="dark" mt="15px" onClick={() => setImage("")}>
+                    Remove Image
+                  </Button>
+                </>
+              ) : (
+                <Dropzone
+                  mutiple={false}
+                  accept={IMAGE_MIME_TYPE}
+                  onDrop={(files) => {
+                    handleImageUpload(files);
+                  }}
+                >
+                  <Title order={4} align="center" py="20px">
+                    Click To Upload Or Drag Image To Upload
+                  </Title>
+                </Dropzone>
+              )}
+            </Grid.Col>
+            <Space h="20px" />
+            <Divider />
+            <Space h="20px" />
+            <Grid.Col span={4}>
+              <select
+                value={element}
+                onChange={(event) => {
+                  setElement(event.target.value);
                 }}
               >
-                <Title order={4} align="center" py="20px">
-                  Click To Upload Or Drag Image To Upload
-                </Title>
-              </Dropzone>
-            )}
-          </Grid.Col>
+                <option value="">All Elements</option>
+                {elementOptions.map((element) => {
+                  return (
+                    <option key={element._id} value={element._id}>
+                      {element.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </Grid.Col>
+            <Grid.Col span={4}>
+              <select
+                value={region}
+                onChange={(event) => {
+                  setRegion(event.target.value);
+                }}
+              >
+                <option value="">All Regions</option>
+                {regionOptions.map((region) => {
+                  return (
+                    <option key={region._id} value={region._id}>
+                      {region.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </Grid.Col>
+            <Grid.Col span={4}>
+              <select
+                value={weapontype}
+                onChange={(event) => {
+                  setWeapontype(event.target.value);
+                }}
+              >
+                <option value="">All Weapon Types</option>
+                {weapontypeOptions.map((weapontype) => {
+                  return (
+                    <option key={weapontype._id} value={weapontype._id}>
+                      {weapontype.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </Grid.Col>
+            <Space h="20px" />
+            <Divider />
+            <Space h="20px" />
+            <Grid.Col span={6}>
+              <TextInput
+                value={birthday}
+                placeholder="Enter the character birthday here"
+                label="Birthday"
+                description="The birthday of the character"
+                withAsterisk
+                onChange={(event) => setBirthday(event.target.value)}
+              />
+            </Grid.Col>
+            <Space h="20px" />
+            <Grid.Col span={6}>
+              <TextInput
+                value={releaseDate}
+                placeholder="Enter the character release date here"
+                label="Release Date"
+                description="The release date of the character"
+                withAsterisk
+                onChange={(event) => setReleaseDate(event.target.value)}
+              />
+            </Grid.Col>
+            <Grid.Col>
+              <Textarea
+                value={detail}
+                placeholder="Enter the character details here"
+                label="Detail"
+                description="The detail of the character"
+                withAsterisk
+                minRows={10}
+                onChange={(event) => setDetail(event.target.value)}
+              />
+            </Grid.Col>
+          </Grid>
           <Space h="20px" />
-          <Divider />
-          <Space h="20px" />
-          <Grid.Col span={4}>
-            <select
-              value={element}
-              onChange={(event) => {
-                setElement(event.target.value);
-              }}
-            >
-              <option value="">All Elements</option>
-              {elementOptions.map((element) => {
-                return (
-                  <option key={element._id} value={element._id}>
-                    {element.name}
-                  </option>
-                );
-              })}
-            </select>
-          </Grid.Col>
-          <Grid.Col span={4}>
-            <select
-              value={region}
-              onChange={(event) => {
-                setRegion(event.target.value);
-              }}
-            >
-              <option value="">All Regions</option>
-              {regionOptions.map((region) => {
-                return (
-                  <option key={region._id} value={region._id}>
-                    {region.name}
-                  </option>
-                );
-              })}
-            </select>
-          </Grid.Col>
-          <Grid.Col span={4}>
-            <select
-              value={weapontype}
-              onChange={(event) => {
-                setWeapontype(event.target.value);
-              }}
-            >
-              <option value="">All Weapon Types</option>
-              {weapontypeOptions.map((weapontype) => {
-                return (
-                  <option key={weapontype._id} value={weapontype._id}>
-                    {weapontype.name}
-                  </option>
-                );
-              })}
-            </select>
-          </Grid.Col>
-          <Space h="20px" />
-          <Divider />
-          <Space h="20px" />
-          <Grid.Col span={6}>
-            <TextInput
-              value={birthday}
-              placeholder="Enter the character birthday here"
-              label="Birthday"
-              description="The birthday of the character"
-              withAsterisk
-              onChange={(event) => setBirthday(event.target.value)}
-            />
-          </Grid.Col>
-          <Space h="20px" />
-          <Grid.Col span={6}>
-            <TextInput
-              value={releaseDate}
-              placeholder="Enter the character release date here"
-              label="Release Date"
-              description="The release date of the character"
-              withAsterisk
-              onChange={(event) => setReleaseDate(event.target.value)}
-            />
-          </Grid.Col>
-          <Grid.Col>
-            <Textarea
-              value={detail}
-              placeholder="Enter the character details here"
-              label="Detail"
-              description="The detail of the character"
-              withAsterisk
-              minRows={10}
-              onChange={(event) => setDetail(event.target.value)}
-            />
-          </Grid.Col>
-        </Grid>
+          <Button fullWidth onClick={handleUpdateCharacters}>
+            Update Character
+          </Button>
+        </Card>
         <Space h="20px" />
-        <Button fullWidth onClick={handleUpdateCharacters}>
-          Update Character
-        </Button>
-      </Card>
-      <Space h="20px" />
-      <Group position="center">
-        <Button component={Link} to="/" variant="subtle" size="xs" color="gray">
-          Go back to Home
-        </Button>
-      </Group>
-      <Space h="100px" />
-    </Container>
+        <Group position="center">
+          <Button
+            component={Link}
+            to="/"
+            variant="subtle"
+            size="xs"
+            color="gray"
+          >
+            Go back to Home
+          </Button>
+        </Group>
+        <Space h="50px" />
+      </Container>
+      <Footer />
+    </>
   );
 }
 

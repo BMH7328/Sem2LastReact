@@ -331,6 +331,7 @@ function Weapons() {
             );
           })}
         </div>
+        <Space h="50px" />
       </Container>
       <Footer />
     </>

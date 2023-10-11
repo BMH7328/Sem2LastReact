@@ -58,47 +58,54 @@ export default function Login() {
     }
   };
   return (
-    <Container size="100%">
-      <Space h="50px" />
+    <>
       <Header title="Login To Your Account" page="login" />
-      <Space h="50px" />
-      <Card
-        withBorder
-        shadow="lg"
-        p="20px"
-        mx="auto"
-        sx={{
-          maxWidth: "500px",
-        }}
-      >
-        <TextInput
-          value={email}
-          placeholder="Email"
-          label="Email"
-          required
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <Space h="20px" />
-        <PasswordInput
-          value={password}
-          placeholder="Password"
-          label="Password"
-          visible={visible}
-          onVisibilityChange={toggle}
-          required
-          onChange={(event) => setPassword(event.target.value)}
-        />
+      <Container size="90%">
+        <Space h="50px" />
+        <Card
+          withBorder
+          shadow="lg"
+          p="20px"
+          mx="auto"
+          sx={{
+            maxWidth: "500px",
+          }}
+        >
+          <TextInput
+            value={email}
+            placeholder="Email"
+            label="Email"
+            required
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <Space h="20px" />
+          <PasswordInput
+            value={password}
+            placeholder="Password"
+            label="Password"
+            visible={visible}
+            onVisibilityChange={toggle}
+            required
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <Space h="20px" />
+          <Group position="center">
+            <Button onClick={handleSubmit}>Submit</Button>
+          </Group>
+        </Card>
         <Space h="20px" />
         <Group position="center">
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button
+            component={Link}
+            to="/"
+            variant="subtle"
+            size="xs"
+            color="gray"
+          >
+            Go back to Home
+          </Button>
         </Group>
-      </Card>
-      <Space h="20px" />
-      <Group position="center">
-        <Button component={Link} to="/" variant="subtle" size="xs" color="gray">
-          Go back to Home
-        </Button>
-      </Group>
-    </Container>
+      </Container>
+    </>
   );
 }
