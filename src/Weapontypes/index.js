@@ -41,7 +41,7 @@ export default function Weapontypes() {
   return (
     <>
       <Header title="Weapon Types" page="weapontypes" />
-      <Container>
+      <Container size="90%">
         <Space h="20px" />{" "}
         <Group position="right">
           {isAdmin && (
@@ -56,7 +56,7 @@ export default function Weapontypes() {
           )}
         </Group>
         <Space h="20px" />
-        <Table>
+        <Table horizontalSpacing="xl" striped>
           <thead>
             <tr>
               <th>Image</th>
@@ -65,10 +65,10 @@ export default function Weapontypes() {
               <th>Actions</th>
             </tr>
           </thead>
-          {weapontypes ? (
-            weapontypes.map((weapontype) => {
-              return (
-                <tbody>
+          <tbody>
+            {weapontypes ? (
+              weapontypes.map((weapontype) => {
+                return (
                   <tr key={weapontype._id}>
                     <td>
                       {weapontype.image && weapontype.image !== "" ? (
@@ -106,15 +106,15 @@ export default function Weapontypes() {
                       )}
                     </td>
                   </tr>
-                </tbody>
-              );
-            })
-          ) : (
-            <Group position="center">
-              <Space h="120px" />
-              <h1 className="text-center text-muted">No Weapon Type yet .</h1>
-            </Group>
-          )}
+                );
+              })
+            ) : (
+              <Group position="center">
+                <Space h="120px" />
+                <h1 className="text-center text-muted">No Weapon Type yet .</h1>
+              </Group>
+            )}
+          </tbody>
         </Table>
       </Container>
       <Space h="50px" />

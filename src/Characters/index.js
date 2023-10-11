@@ -8,6 +8,7 @@ import {
   Button,
   Image,
   Input,
+  Container,
 } from "@mantine/core";
 import Header from "../Header";
 import Footer from "../Footer";
@@ -21,6 +22,7 @@ import { useCookies } from "react-cookie";
 import { fetchWeapontypes } from "../api/weapontypes";
 import { fetchElements } from "../api/elements";
 import { fetchRegions } from "../api/regions";
+import { AiOutlineSearch } from "react-icons/ai";
 
 function Characters() {
   const [cookies] = useCookies(["currentUser"]);
@@ -177,241 +179,259 @@ function Characters() {
   return (
     <>
       <Header title="Characters" page="characters" />
-      <Space h="20px" />
-      <Group position="right">
-        {isAdmin && (
-          <Button
-            component={Link}
-            to="/characters_add"
-            variant="gradient"
-            gradient={{ from: "yellow", to: "purple", deg: 105 }}
-          >
-            Add New
-          </Button>
-        )}
-      </Group>
-      <Space h="20px" />
-      <Group position="apart">
-        <Input
-          type="text"
-          placeholder="Search"
-          value={searchTerm}
-          onChange={(event) => {
-            setSearchTerm(event.target.value);
-            setCurrentPage(1);
-          }}
-        />
-        <select
-          value={element}
-          onChange={(event) => {
-            setElement(event.target.value);
-            setCurrentPage(1);
-          }}
-        >
-          <option value="">All Elements</option>
-          {elementOptions.map((element) => {
-            return (
-              <option key={element} value={element._id}>
-                {element.name}
-              </option>
-            );
-          })}
-        </select>
-        <select
-          value={weapontype}
-          onChange={(event) => {
-            setWeapontype(event.target.value);
-            setCurrentPage(1);
-          }}
-        >
-          <option value="">All Weapon Types</option>
-          {weapontypeOptions.map((weapontype) => {
-            return (
-              <option key={weapontype} value={weapontype._id}>
-                {weapontype.name}
-              </option>
-            );
-          })}
-        </select>
-        <select
-          value={region}
-          onChange={(event) => {
-            setRegion(event.target.value);
-            setCurrentPage(1);
-          }}
-        >
-          <option value="">All Regions</option>
-          {regionOptions.map((region) => {
-            return (
-              <option key={region} value={region._id}>
-                {region.name}
-              </option>
-            );
-          })}
-        </select>
-        <select
-          value={sort}
-          onChange={(event) => {
-            setSort(event.target.value);
-            setCurrentPage(1);
-          }}
-        >
-          <option value="">No Sorting</option>
-          <option value="name">Sort by Name</option>
-          <option value="quality">Sort by Quality</option>
-        </select>
-        <select
-          value={perPage}
-          onChange={(event) => {
-            setPerPage(parseInt(event.target.value));
-            // reset it back to page 1
-            setCurrentPage(1);
-          }}
-        >
-          <option value="6">6 Per Page</option>
-          <option value="10">10 Per Page</option>
-          <option value={9999999}>All</option>
-        </select>
-      </Group>
-      <Space h="20px" />
-      <Grid>
-        {currentCharacters
-          ? currentCharacters.map((character) => {
-              return (
-                <Grid.Col key={character._id} lg={4} md={6} sm={6} xs={12}>
-                  <Card withBorder shadow="sm" p="20px" mx={"auto"}>
-                    <Image
-                      src={"http://localhost:5000/" + character.image}
-                      width="300px"
-                      alt={character.name}
-                      mx={"auto"}
-                    />
-                    <Space h="20px" />
-                    <Title order={5}>{character.name}</Title>
-                    <Group position="apart" spacing="5px">
-                      <Badge color="green">{character.quality}</Badge>
-                      <Badge color="yellow">{character.weapontype.name}</Badge>
-                    </Group>
-                    <Space h="20px" />
-                    <Button
-                      fullWidth
-                      onClick={() => {
-                        // pop a messsage if user is not logged in
-                        if (cookies && cookies.currentUser) {
-                          addToCartMutation.mutate(character);
-                        } else {
-                          notifications.show({
-                            title: "Please login to proceed",
-                            message: (
-                              <>
-                                <Button
-                                  color="red"
-                                  onClick={() => {
-                                    navigate("/login");
-                                    notifications.clean();
-                                  }}
-                                >
-                                  Click here to login
-                                </Button>
-                              </>
-                            ),
-                            color: "red",
-                          });
-                        }
-                      }}
-                    >
-                      {" "}
-                      Add To Cart
-                    </Button>
-                    <Space h="20px" />
-                    <Button
-                      fullWidth
-                      onClick={() => {
-                        // pop a messsage if user is not logged in
-                        if (cookies && cookies.currentUser) {
-                          navigate("/views/" + character._id);
-                        } else {
-                          notifications.show({
-                            title: "Please login to proceed",
-                            message: (
-                              <>
-                                <Button
-                                  color="red"
-                                  onClick={() => {
-                                    navigate("/login");
-                                    notifications.clean();
-                                  }}
-                                >
-                                  Click here to login
-                                </Button>
-                              </>
-                            ),
-                            color: "red",
-                          });
-                        }
-                      }}
-                    >
-                      {" "}
-                      View More Info...
-                    </Button>
-                    {isAdmin && (
-                      <>
-                        <Space h="20px" />
-                        <Group position="apart">
-                          <Button
-                            component={Link}
-                            to={"/characters/" + character._id}
-                            color="blue"
-                            size="xs"
-                            radius="50px"
-                          >
-                            Edit
-                          </Button>
-                          <Button
-                            color="red"
-                            size="xs"
-                            radius="50px"
-                            onClick={() => {
-                              deleteMutation.mutate({
-                                id: character._id,
-                                token: currentUser ? currentUser.token : "",
-                              });
-                            }}
-                          >
-                            Delete
-                          </Button>
-                        </Group>
-                      </>
-                    )}
-                  </Card>
-                </Grid.Col>
-              );
-            })
-          : null}
-      </Grid>
-      <Space h="40px" />
-      <div>
-        <span
-          style={{
-            marginRight: "10px",
-          }}
-        >
-          Page {currentPage} of {totalPages.length}
-        </span>
-        {totalPages.map((page) => {
-          return (
-            <button
-              key={page}
-              onClick={() => {
-                setCurrentPage(page);
+      <Container size="90%">
+        <Space h="20px" />
+        <Group position="right">
+          {isAdmin && (
+            <Button
+              component={Link}
+              to="/characters_add"
+              variant="gradient"
+              gradient={{ from: "yellow", to: "purple", deg: 105 }}
+            >
+              Add New
+            </Button>
+          )}
+        </Group>
+        <Space h="20px" />
+        <Group position="apart">
+          <Group position="left">
+            <div
+              sx={{
+                borderRadius: "auto",
               }}
             >
-              {page}
-            </button>
-          );
-        })}
-      </div>
-      <Space h="40px" />
+              <Input
+                type="text"
+                placeholder="Search"
+                value={searchTerm}
+                radius="xl"
+                rightSection={<AiOutlineSearch />}
+                onChange={(event) => {
+                  setSearchTerm(event.target.value);
+                  setCurrentPage(1);
+                }}
+              />
+            </div>
+          </Group>
+          <Group position="right">
+            <select
+              value={element}
+              onChange={(event) => {
+                setElement(event.target.value);
+                setCurrentPage(1);
+              }}
+            >
+              <option value="">All Elements</option>
+              {elementOptions.map((element) => {
+                return (
+                  <option key={element} value={element._id}>
+                    {element.name}
+                  </option>
+                );
+              })}
+            </select>
+
+            <select
+              value={weapontype}
+              onChange={(event) => {
+                setWeapontype(event.target.value);
+                setCurrentPage(1);
+              }}
+            >
+              <option value="">All Weapon Types</option>
+              {weapontypeOptions.map((weapontype) => {
+                return (
+                  <option key={weapontype} value={weapontype._id}>
+                    {weapontype.name}
+                  </option>
+                );
+              })}
+            </select>
+
+            <select
+              value={region}
+              onChange={(event) => {
+                setRegion(event.target.value);
+                setCurrentPage(1);
+              }}
+            >
+              <option value="">All Regions</option>
+              {regionOptions.map((region) => {
+                return (
+                  <option key={region} value={region._id}>
+                    {region.name}
+                  </option>
+                );
+              })}
+            </select>
+            <select
+              value={sort}
+              onChange={(event) => {
+                setSort(event.target.value);
+                setCurrentPage(1);
+              }}
+            >
+              <option value="">No Sorting</option>
+              <option value="name">Sort by Name</option>
+              <option value="quality">Sort by Quality</option>
+            </select>
+            <select
+              value={perPage}
+              onChange={(event) => {
+                setPerPage(parseInt(event.target.value));
+                // reset it back to page 1
+                setCurrentPage(1);
+              }}
+            >
+              <option value="6">6 Per Page</option>
+              <option value="10">10 Per Page</option>
+              <option value={9999999}>All</option>
+            </select>
+          </Group>
+        </Group>
+        <Space h="20px" />
+        <Grid>
+          {currentCharacters
+            ? currentCharacters.map((character) => {
+                return (
+                  <Grid.Col key={character._id} lg={4} md={6} sm={6} xs={12}>
+                    <Card withBorder shadow="sm" p="20px" mx={"auto"}>
+                      <Image
+                        src={"http://localhost:5000/" + character.image}
+                        width="300px"
+                        alt={character.name}
+                        mx={"auto"}
+                      />
+                      <Space h="20px" />
+                      <Title order={5}>{character.name}</Title>
+                      <Group position="apart" spacing="5px">
+                        <Badge color="green">{character.quality}</Badge>
+                        <Badge color="yellow">
+                          {character.weapontype.name}
+                        </Badge>
+                      </Group>
+                      <Space h="20px" />
+                      <Button
+                        fullWidth
+                        onClick={() => {
+                          // pop a messsage if user is not logged in
+                          if (cookies && cookies.currentUser) {
+                            addToCartMutation.mutate(character);
+                          } else {
+                            notifications.show({
+                              title: "Please login to proceed",
+                              message: (
+                                <>
+                                  <Button
+                                    color="red"
+                                    onClick={() => {
+                                      navigate("/login");
+                                      notifications.clean();
+                                    }}
+                                  >
+                                    Click here to login
+                                  </Button>
+                                </>
+                              ),
+                              color: "red",
+                            });
+                          }
+                        }}
+                      >
+                        {" "}
+                        Add To Cart
+                      </Button>
+                      <Space h="20px" />
+                      <Button
+                        fullWidth
+                        onClick={() => {
+                          // pop a messsage if user is not logged in
+                          if (cookies && cookies.currentUser) {
+                            navigate("/views/" + character._id);
+                          } else {
+                            notifications.show({
+                              title: "Please login to proceed",
+                              message: (
+                                <>
+                                  <Button
+                                    color="red"
+                                    onClick={() => {
+                                      navigate("/login");
+                                      notifications.clean();
+                                    }}
+                                  >
+                                    Click here to login
+                                  </Button>
+                                </>
+                              ),
+                              color: "red",
+                            });
+                          }
+                        }}
+                      >
+                        {" "}
+                        View More Info...
+                      </Button>
+                      {isAdmin && (
+                        <>
+                          <Space h="20px" />
+                          <Group position="apart">
+                            <Button
+                              component={Link}
+                              to={"/characters/" + character._id}
+                              color="blue"
+                              size="xs"
+                              radius="50px"
+                            >
+                              Edit
+                            </Button>
+                            <Button
+                              color="red"
+                              size="xs"
+                              radius="50px"
+                              onClick={() => {
+                                deleteMutation.mutate({
+                                  id: character._id,
+                                  token: currentUser ? currentUser.token : "",
+                                });
+                              }}
+                            >
+                              Delete
+                            </Button>
+                          </Group>
+                        </>
+                      )}
+                    </Card>
+                  </Grid.Col>
+                );
+              })
+            : null}
+        </Grid>
+        <Space h="40px" />
+        <div>
+          <span
+            style={{
+              marginRight: "10px",
+            }}
+          >
+            Page {currentPage} of {totalPages.length}
+          </span>
+          {totalPages.map((page) => {
+            return (
+              <button
+                key={page}
+                onClick={() => {
+                  setCurrentPage(page);
+                }}
+              >
+                {page}
+              </button>
+            );
+          })}
+        </div>
+        <Space h="40px" />
+      </Container>
       <Footer />
     </>
   );

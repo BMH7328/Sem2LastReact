@@ -39,11 +39,10 @@ export default function Favorites() {
   });
   return (
     <>
-      <Container size="75%">
-        <Header title="My Favorites" page="favorites" />
+      <Header title="My Favorites" page="favorites" />
+      <Container size="90%">
         <Space h="35px" />
-        {/* <LoadingOverlay visible={isLoading} /> */}
-        <Table>
+        <Table horizontalSpacing="xl" striped>
           <thead>
             <tr>
               <th>Users</th>

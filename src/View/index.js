@@ -3,13 +3,11 @@ import {
   Title,
   Space,
   Card,
-  TextInput,
   Divider,
   Button,
   Group,
   Image,
   Grid,
-  Textarea,
 } from "@mantine/core";
 import Footer from "../Footer";
 import { Link, useParams, useNavigate } from "react-router-dom";

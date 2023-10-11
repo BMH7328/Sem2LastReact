@@ -41,7 +41,7 @@ export default function Regions() {
   return (
     <>
       <Header title="Regions" page="regions" />
-      <Container>
+      <Container size="90%">
         <Space h="20px" />{" "}
         <Group position="right">
           {isAdmin && (
@@ -56,7 +56,7 @@ export default function Regions() {
           )}
         </Group>
         <Space h="20px" />
-        <Table>
+        <Table horizontalSpacing="xl" striped>
           <thead>
             <tr>
               <th>Image</th>
@@ -64,10 +64,10 @@ export default function Regions() {
               <th>Actions</th>
             </tr>
           </thead>
-          {regions ? (
-            regions.map((region) => {
-              return (
-                <tbody>
+          <tbody>
+            {regions ? (
+              regions.map((region) => {
+                return (
                   <tr key={region._id}>
                     <td>
                       {region.image && region.image !== "" ? (
@@ -104,15 +104,15 @@ export default function Regions() {
                       )}
                     </td>
                   </tr>
-                </tbody>
-              );
-            })
-          ) : (
-            <Group position="center">
-              <Space h="120px" />
-              <h1 className="text-center text-muted">No Region yet .</h1>
-            </Group>
-          )}
+                );
+              })
+            ) : (
+              <Group position="center">
+                <Space h="120px" />
+                <h1 className="text-center text-muted">No Region yet .</h1>
+              </Group>
+            )}
+          </tbody>
         </Table>
       </Container>
       <Space h="50px" />

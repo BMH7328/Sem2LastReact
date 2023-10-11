@@ -41,7 +41,7 @@ export default function Elements() {
   return (
     <>
       <Header title="Elements" page="elements" />
-      <Container>
+      <Container size="90%">
         <Space h="20px" />{" "}
         <Group position="right">
           {isAdmin && (
@@ -56,7 +56,7 @@ export default function Elements() {
           )}
         </Group>
         <Space h="20px" />
-        <Table>
+        <Table horizontalSpacing="xl" striped>
           <thead>
             <tr>
               <th>Image</th>
@@ -94,6 +94,7 @@ export default function Elements() {
                         <Button
                           variant="outline"
                           color="red"
+                          position="right"
                           onClick={() => {
                             deleteMutation.mutate({
                               id: element._id,

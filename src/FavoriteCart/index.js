@@ -93,8 +93,8 @@ export default function Cart() {
 
   return (
     <>
-      <Container size="75%">
-        <Header title="Cart" page="cart" />
+      <Header title="Cart" page="cart" />
+      <Container size="90%">
         <Space h="20px" />
         <Group position="center">
           <Grid>

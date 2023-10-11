@@ -66,70 +66,78 @@ export default function Signup() {
     }
   };
   return (
-    <Container size="100%">
-      <Space h="50px" />
+    <>
       <Header title="Sign Up A New Account" page="signup" />
-      <Space h="50px" />
-      <Card
-        withBorder
-        shadow="lg"
-        p="20px"
-        mx="auto"
-        sx={{
-          maxWidth: "700px",
-        }}
-      >
-        <Grid gutter={20}>
-          <Grid.Col span={6}>
-            <TextInput
-              value={name}
-              placeholder="Name"
-              label="Name"
-              required
-              onChange={(event) => setName(event.target.value)}
-            />
-            <Space h="20px" />
-            <TextInput
-              value={email}
-              placeholder="Email"
-              label="Email"
-              required
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <PasswordInput
-              value={password}
-              placeholder="Password"
-              label="Password"
-              visible={visible}
-              onVisibilityChange={toggle}
-              required
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <Space h="20px" />
-            <PasswordInput
-              value={confirmPassword}
-              placeholder="Confirm Password"
-              label="Confirm Password"
-              visible={visible}
-              onVisibilityChange={toggle}
-              required
-              onChange={(event) => setConfirmPassword(event.target.value)}
-            />
-          </Grid.Col>
-        </Grid>
-        <Space h="40px" />
+      <Container size="100%">
+        <Space h="50px" />
+        <Space h="50px" />
+        <Card
+          withBorder
+          shadow="lg"
+          p="20px"
+          mx="auto"
+          sx={{
+            maxWidth: "700px",
+          }}
+        >
+          <Grid gutter={20}>
+            <Grid.Col span={6}>
+              <TextInput
+                value={name}
+                placeholder="Name"
+                label="Name"
+                required
+                onChange={(event) => setName(event.target.value)}
+              />
+              <Space h="20px" />
+              <TextInput
+                value={email}
+                placeholder="Email"
+                label="Email"
+                required
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <PasswordInput
+                value={password}
+                placeholder="Password"
+                label="Password"
+                visible={visible}
+                onVisibilityChange={toggle}
+                required
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <Space h="20px" />
+              <PasswordInput
+                value={confirmPassword}
+                placeholder="Confirm Password"
+                label="Confirm Password"
+                visible={visible}
+                onVisibilityChange={toggle}
+                required
+                onChange={(event) => setConfirmPassword(event.target.value)}
+              />
+            </Grid.Col>
+          </Grid>
+          <Space h="40px" />
+          <Group position="center">
+            <Button onClick={handleSubmit}>Submit</Button>
+          </Group>
+        </Card>
+        <Space h="20px" />
         <Group position="center">
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button
+            component={Link}
+            to="/"
+            variant="subtle"
+            size="xs"
+            color="gray"
+          >
+            Go back to Home
+          </Button>
         </Group>
-      </Card>
-      <Space h="20px" />
-      <Group position="center">
-        <Button component={Link} to="/" variant="subtle" size="xs" color="gray">
-          Go back to Home
-        </Button>
-      </Group>
-    </Container>
+      </Container>
+    </>
   );
 }
