@@ -23,6 +23,7 @@ import { useCookies } from "react-cookie";
 import { fetchWeapons, deleteWeapon } from "../api/weapons";
 import { fetchWeapontypes } from "../api/weapontypes";
 import { AiOutlineSearch } from "react-icons/ai";
+import { TbShoppingCartHeart } from "react-icons/tb";
 
 function Weapons() {
   const [cookies] = useCookies(["currentUser"]);
@@ -141,180 +142,190 @@ function Weapons() {
   return (
     <>
       <Header title="Weapons" page="weapons" />
-      <Container size="90%">
-        <Space h="20px" />
-        <Group position="right">
-          {isAdmin && (
-            <MantineProvider
-              theme={{
-                fontFamily: "Rajdhani, sans-serif",
-              }}
-            >
-              <Button
-                component={Link}
-                to="/weapons_add"
-                size="md"
-                sx={{
-                  color: "white",
-                  border: "1px solid black",
-                  background: "2" ? "black" : "none",
-                  "&:hover": { backgroundColor: "#808080" },
-                }}
-              >
-                Add New
-              </Button>
-            </MantineProvider>
-          )}
-        </Group>
-        <Space h="20px" />
-        <Group position="apart">
-          <Group position="left">
-            <div
-              sx={{
-                borderRadius: "auto",
-              }}
-            >
+      <MantineProvider
+        theme={{
+          fontFamily: "Rajdhani, sans-serif",
+        }}
+      >
+        <Container size="90%">
+          <Space h="20px" />
+          <Group position="right">
+            {isAdmin && (
               <MantineProvider
                 theme={{
                   fontFamily: "Rajdhani, sans-serif",
                 }}
               >
-                <Input
-                  type="text"
-                  placeholder="Search"
-                  value={searchTerm}
-                  radius="xl"
-                  rightSection={<AiOutlineSearch />}
-                  onChange={(event) => {
-                    setSearchTerm(event.target.value);
-                    setCurrentPage(1);
+                <Button
+                  component={Link}
+                  to="/weapons_add"
+                  size="md"
+                  sx={{
+                    color: "white",
+                    border: "1px solid black",
+                    background: "2" ? "black" : "none",
+                    "&:hover": { backgroundColor: "#808080" },
                   }}
-                />
+                >
+                  Add New
+                </Button>
               </MantineProvider>
-            </div>
+            )}
           </Group>
-          <Group position="right">
-            <select
-              value={weapontype}
-              onChange={(event) => {
-                setWeapontype(event.target.value);
-                setCurrentPage(1);
-              }}
-            >
-              <option value="">All Weapon Types</option>
-              {weapontypeOptions.map((weapontype) => {
-                return (
-                  <option key={weapontype} value={weapontype._id}>
-                    {weapontype.name}
-                  </option>
-                );
-              })}
-            </select>
-            <select
-              value={sort}
-              onChange={(event) => {
-                setSort(event.target.value);
-                setCurrentPage(1);
-              }}
-            >
-              <option value="">No Sorting</option>
-              <option value="name">Sort by Name</option>
-              <option value="quality">Sort by Quality</option>
-            </select>
-            <select
-              value={perPage}
-              onChange={(event) => {
-                setPerPage(parseInt(event.target.value));
-                // reset it back to page 1
-                setCurrentPage(1);
-              }}
-            >
-              <option value="6">6 Per Page</option>
-              <option value="10">10 Per Page</option>
-              <option value={9999999}>All</option>
-            </select>
+          <Space h="20px" />
+          <Group position="apart">
+            <Group position="left">
+              <div
+                sx={{
+                  borderRadius: "auto",
+                }}
+              >
+                <MantineProvider
+                  theme={{
+                    fontFamily: "Rajdhani, sans-serif",
+                  }}
+                >
+                  <Input
+                    type="text"
+                    placeholder="Search"
+                    value={searchTerm}
+                    radius="xl"
+                    rightSection={<AiOutlineSearch />}
+                    onChange={(event) => {
+                      setSearchTerm(event.target.value);
+                      setCurrentPage(1);
+                    }}
+                  />
+                </MantineProvider>
+              </div>
+            </Group>
+            <Group position="right">
+              <select
+                value={weapontype}
+                onChange={(event) => {
+                  setWeapontype(event.target.value);
+                  setCurrentPage(1);
+                }}
+              >
+                <option value="">All Weapon Types</option>
+                {weapontypeOptions.map((weapontype) => {
+                  return (
+                    <option key={weapontype} value={weapontype._id}>
+                      {weapontype.name}
+                    </option>
+                  );
+                })}
+              </select>
+              <select
+                value={sort}
+                onChange={(event) => {
+                  setSort(event.target.value);
+                  setCurrentPage(1);
+                }}
+              >
+                <option value="">No Sorting</option>
+                <option value="name">Sort by Name</option>
+                <option value="quality">Sort by Quality</option>
+              </select>
+              <select
+                value={perPage}
+                onChange={(event) => {
+                  setPerPage(parseInt(event.target.value));
+                  // reset it back to page 1
+                  setCurrentPage(1);
+                }}
+              >
+                <option value="6">6 Per Page</option>
+                <option value="10">10 Per Page</option>
+                <option value={9999999}>All</option>
+              </select>
+            </Group>
           </Group>
-        </Group>
-        <Space h="20px" />
-        <Grid gutter={"50px"}>
-          {currentWeapons
-            ? currentWeapons.map((weapon) => {
-                return (
-                  <Grid.Col key={weapon._id} lg={4} md={6} sm={6} xs={12}>
-                    <Card withBorder shadow="sm" p="20px" mx={"auto"}>
-                      <MantineProvider
-                        theme={{
-                          fontFamily: "Raleway, sans-serif",
-                        }}
-                      >
-                        <Text fs="italic" size="xl">
-                          Release On: {weapon.release_date}
-                        </Text>
-                      </MantineProvider>
-                      <Image
-                        src={"http://localhost:5000/" + weapon.image}
-                        width="300px"
-                        alt={weapon.name}
-                        mx={"auto"}
-                      />
-                      <Space h="20px" />
-                      <MantineProvider
-                        theme={{
-                          fontFamily: "Raleway, sans-serif",
-                        }}
-                      >
-                        <Title order={3}>{weapon.name}</Title>
-
+          <Space h="20px" />
+          <Grid gutter={"50px"}>
+            {currentWeapons
+              ? currentWeapons.map((weapon) => {
+                  return (
+                    <Grid.Col key={weapon._id} lg={4} md={6} sm={6} xs={12}>
+                      <Card withBorder shadow="sm" p="20px" mx={"auto"}>
+                        <MantineProvider
+                          theme={{
+                            fontFamily: "Raleway, sans-serif",
+                          }}
+                        >
+                          <Text fs="italic" size="xl">
+                            Release On: {weapon.release_date}
+                          </Text>
+                        </MantineProvider>
+                        <Image
+                          src={"http://localhost:5000/" + weapon.image}
+                          width="300px"
+                          alt={weapon.name}
+                          mx={"auto"}
+                        />
                         <Space h="20px" />
-                        <Group position="apart" spacing="5px">
-                          <Badge color="yellow" size="lg">
-                            <Text color="dark">{weapon.quality}</Text>
-                          </Badge>
-                          <Badge color="red" size="lg">
-                            <Text color="dark">{weapon.weapontype.name}</Text>
-                          </Badge>
-                        </Group>
-                      </MantineProvider>
-                      <Space h="20px" />
-                      <Button
-                        fullWidth
-                        onClick={() => {
-                          // pop a messsage if user is not logged in
-                          if (cookies && cookies.currentUser) {
-                            addToCartMutation.mutate(weapon);
-                          } else {
-                            notifications.show({
-                              title: "Please login to proceed",
-                              message: (
-                                <>
-                                  <Button
-                                    color="red"
-                                    onClick={() => {
-                                      navigate("/login");
-                                      notifications.clean();
-                                    }}
-                                  >
-                                    Click here to login
-                                  </Button>
-                                </>
-                              ),
-                              color: "red",
-                            });
-                          }
-                        }}
-                      >
-                        {" "}
-                        Add To Cart
-                      </Button>
-                      {isAdmin && (
-                        <>
+                        <MantineProvider
+                          theme={{
+                            fontFamily: "Raleway, sans-serif",
+                          }}
+                        >
+                          <Title order={3}>{weapon.name}</Title>
+
                           <Space h="20px" />
-                          <Group position="apart">
-                            <MantineProvider
-                              theme={{
-                                fontFamily: "Rajdhani, sans-serif",
-                              }}
-                            >
+                          <Group position="apart" spacing="5px">
+                            <Badge color="yellow" size="lg">
+                              <Text color="dark">{weapon.quality}</Text>
+                            </Badge>
+                            <Badge color="red" size="lg">
+                              <Text color="dark">{weapon.weapontype.name}</Text>
+                            </Badge>
+                          </Group>
+                        </MantineProvider>
+                        <Space h="20px" />
+                        <Group position="center">
+                          <Button
+                            size="md"
+                            sx={{
+                              backgroundColor: "#FFFFFF",
+                              color: "black",
+                              border: "2px solid #6f00ff",
+                              "&:hover": {
+                                backgroundColor: "#6f00ff",
+                              },
+                            }}
+                            onClick={() => {
+                              // pop a messsage if user is not logged in
+                              if (cookies && cookies.currentUser) {
+                                addToCartMutation.mutate(weapon);
+                              } else {
+                                notifications.show({
+                                  title: "Please Login To Add",
+                                  message: (
+                                    <>
+                                      <Button
+                                        color="red"
+                                        onClick={() => {
+                                          navigate("/login");
+                                          notifications.clean();
+                                        }}
+                                      >
+                                        Click here to login
+                                      </Button>
+                                    </>
+                                  ),
+                                  color: "red",
+                                });
+                              }
+                            }}
+                          >
+                            {" "}
+                            <TbShoppingCartHeart />
+                          </Button>
+                        </Group>
+                        {isAdmin && (
+                          <>
+                            <Space h="20px" />
+                            <Group position="apart">
                               <Button
                                 component={Link}
                                 to={"/weapons/" + weapon._id}
@@ -345,40 +356,40 @@ function Weapons() {
                               >
                                 Delete
                               </Button>
-                            </MantineProvider>
-                          </Group>
-                        </>
-                      )}
-                    </Card>
-                  </Grid.Col>
-                );
-              })
-            : null}
-        </Grid>
-        <Space h="40px" />
-        <div>
-          <span
-            style={{
-              marginRight: "10px",
-            }}
-          >
-            Page {currentPage} of {totalPages.length}
-          </span>
-          {totalPages.map((page) => {
-            return (
-              <button
-                key={page}
-                onClick={() => {
-                  setCurrentPage(page);
-                }}
-              >
-                {page}
-              </button>
-            );
-          })}
-        </div>
-        <Space h="50px" />
-      </Container>
+                            </Group>
+                          </>
+                        )}
+                      </Card>
+                    </Grid.Col>
+                  );
+                })
+              : null}
+          </Grid>
+          <Space h="40px" />
+          <div>
+            <span
+              style={{
+                marginRight: "10px",
+              }}
+            >
+              Page {currentPage} of {totalPages.length}
+            </span>
+            {totalPages.map((page) => {
+              return (
+                <button
+                  key={page}
+                  onClick={() => {
+                    setCurrentPage(page);
+                  }}
+                >
+                  {page}
+                </button>
+              );
+            })}
+          </div>
+          <Space h="50px" />
+        </Container>
+      </MantineProvider>
       <Footer />
     </>
   );

@@ -149,7 +149,9 @@ export default function Regions() {
               ) : (
                 <Group position="center">
                   <Space h="120px" />
-                  <h1 className="text-center text-muted">No Region yet .</h1>
+                  <h1 className="text-center text-muted">
+                    No Region added yet .
+                  </h1>
                 </Group>
               )}
             </tbody>

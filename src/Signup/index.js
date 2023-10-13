@@ -7,6 +7,7 @@ import {
   Group,
   Grid,
   PasswordInput,
+  MantineProvider,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useMutation } from "@tanstack/react-query";
@@ -41,6 +42,7 @@ export default function Signup() {
         title: error.response.data.message,
         color: "red",
       });
+      window.location.reload();
     },
   });
 
@@ -69,64 +71,81 @@ export default function Signup() {
   return (
     <>
       <Header title="Sign Up A New Account" page="signup" />
-      <Container size="100%">
-        <Space h="100px" />
-        <Card
-          withBorder
-          shadow="lg"
-          p="20px"
-          mx="auto"
-          sx={{
-            maxWidth: "700px",
-          }}
-        >
-          <Grid gutter={20}>
-            <Grid.Col span={6}>
-              <TextInput
-                value={name}
-                placeholder="Name"
-                label="Name"
-                required
-                onChange={(event) => setName(event.target.value)}
-              />
-              <Space h="20px" />
-              <TextInput
-                value={email}
-                placeholder="Email"
-                label="Email"
-                required
-                onChange={(event) => setEmail(event.target.value)}
-              />
-            </Grid.Col>
-            <Grid.Col span={6}>
-              <PasswordInput
-                value={password}
-                placeholder="Password"
-                label="Password"
-                visible={visible}
-                onVisibilityChange={toggle}
-                required
-                onChange={(event) => setPassword(event.target.value)}
-              />
-              <Space h="20px" />
-              <PasswordInput
-                value={confirmPassword}
-                placeholder="Confirm Password"
-                label="Confirm Password"
-                visible={visible}
-                onVisibilityChange={toggle}
-                required
-                onChange={(event) => setConfirmPassword(event.target.value)}
-              />
-            </Grid.Col>
-          </Grid>
-          <Space h="40px" />
-          <Group position="center">
-            <Button onClick={handleSubmit}>Submit</Button>
-          </Group>
-        </Card>
-        <Space h="100px" />
-      </Container>
+      <MantineProvider
+        theme={{
+          fontFamily: "Rajdhani, sans-serif",
+        }}
+      >
+        <Container size="100%">
+          <Space h="100px" />
+          <Card
+            withBorder
+            shadow="lg"
+            p="20px"
+            mx="auto"
+            sx={{
+              maxWidth: "700px",
+            }}
+          >
+            <Grid gutter={20}>
+              <Grid.Col span={6}>
+                <TextInput
+                  value={name}
+                  placeholder="Name"
+                  label="Name"
+                  required
+                  onChange={(event) => setName(event.target.value)}
+                />
+                <Space h="20px" />
+                <TextInput
+                  value={email}
+                  placeholder="Email"
+                  label="Email"
+                  required
+                  onChange={(event) => setEmail(event.target.value)}
+                />
+              </Grid.Col>
+              <Grid.Col span={6}>
+                <PasswordInput
+                  value={password}
+                  placeholder="Password"
+                  label="Password"
+                  visible={visible}
+                  onVisibilityChange={toggle}
+                  required
+                  onChange={(event) => setPassword(event.target.value)}
+                />
+                <Space h="20px" />
+                <PasswordInput
+                  value={confirmPassword}
+                  placeholder="Confirm Password"
+                  label="Confirm Password"
+                  visible={visible}
+                  onVisibilityChange={toggle}
+                  required
+                  onChange={(event) => setConfirmPassword(event.target.value)}
+                />
+              </Grid.Col>
+            </Grid>
+            <Space h="40px" />
+            <Group position="center">
+              <Button
+                size="md"
+                sx={{
+                  color: "white",
+                  border: "1px solid black",
+                  background: "addele" ? "black" : "none",
+                  "&:hover": { backgroundColor: "#808080" },
+                }}
+                onClick={handleSubmit}
+              >
+                Submit
+              </Button>
+            </Group>
+          </Card>
+          <Space h="100px" />
+        </Container>
+      </MantineProvider>
       <Footer />
     </>
   );

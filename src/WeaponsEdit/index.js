@@ -20,6 +20,8 @@ import { getWeapon, updateWeapon, uploadWeaponImage } from "../api/weapons";
 import { useCookies } from "react-cookie";
 import { fetchWeapontypes } from "../api/weapontypes";
 import Footer from "../Footer";
+import { RxUpdate } from "react-icons/rx";
+import { AiOutlineRollback } from "react-icons/ai";
 
 function WeaponsEdit() {
   const [cookies] = useCookies(["currentUser"]);
@@ -69,7 +71,7 @@ function WeaponsEdit() {
         title: "Weapon Edited",
         color: "green",
       });
-      navigate("/");
+      navigate("/weapons");
     },
     onError: (error) => {
       notifications.show({
@@ -186,7 +188,7 @@ function WeaponsEdit() {
                     setWeapontype(event.target.value);
                   }}
                 >
-                  <option value="">All Weapon Types</option>
+                  <option value="">Select Weapon Type</option>
                   {weapontypeOptions.map((weapontype) => {
                     return (
                       <option key={weapontype._id} value={weapontype._id}>
@@ -209,23 +211,35 @@ function WeaponsEdit() {
               </Grid.Col>
             </Grid>
             <Space h="20px" />
-            <Button fullWidth onClick={handleUpdateWeapons}>
-              Add New Weapon
+            <Button
+              fullWidth
+              size="md"
+              sx={{
+                color: "white",
+                border: "1px solid black",
+                background: "editwea" ? "black" : "none",
+                "&:hover": { backgroundColor: "#808080" },
+              }}
+              onClick={handleUpdateWeapons}
+            >
+              <RxUpdate />
+              Update Weapon
             </Button>
           </Card>
+          <Space h="20px" />
+          <Group position="center">
+            <Button
+              component={Link}
+              to="/weapons"
+              variant="gradient"
+              size="sm"
+              gradient={{ from: "blue", to: "purple", deg: 105 }}
+            >
+              <AiOutlineRollback />
+              Back to Weapons
+            </Button>
+          </Group>
         </MantineProvider>
-        <Space h="20px" />
-        <Group position="center">
-          <Button
-            component={Link}
-            to="/weapons"
-            variant="subtle"
-            size="xs"
-            color="gray"
-          >
-            Go back to Weapons
-          </Button>
-        </Group>
         <Space h="50px" />
       </Container>
       <Footer />

@@ -18,6 +18,7 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { getCharacter, deleteCharacter } from "../api/characters";
 import { useCookies } from "react-cookie";
 import { addToCart } from "../api/cart";
+import { TbShoppingCartHeart } from "react-icons/tb";
 
 function CharactersView() {
   const [cookies] = useCookies(["currentUser"]);
@@ -83,7 +84,7 @@ function CharactersView() {
         queryKey: ["cart"],
       });
       notifications.show({
-        title: "Product Added to Cart",
+        title: "Character Added to Cart",
         color: "green",
       });
     },
@@ -155,34 +156,20 @@ function CharactersView() {
           <Group position="center">
             <Button
               mx={"auto"}
-              size="md"
+              size="lg"
+              sx={{
+                backgroundColor: "#FFFFFF",
+                color: "#EE82EE",
+                border: "2px solid #6F00FF",
+                "&:hover": { backgroundColor: "#6F00FF" },
+              }}
               onClick={() => {
                 // pop a messsage if user is not logged in
-                if (cookies && cookies.currentUser) {
-                  addToCartMutation.mutate(character);
-                } else {
-                  notifications.show({
-                    title: "Please login to proceed",
-                    message: (
-                      <>
-                        <Button
-                          color="red"
-                          onClick={() => {
-                            navigate("/login");
-                            notifications.clean();
-                          }}
-                        >
-                          Click here to login
-                        </Button>
-                      </>
-                    ),
-                    color: "red",
-                  });
-                }
+                addToCartMutation.mutate(character);
               }}
             >
               {" "}
-              Add To Cart
+              <TbShoppingCartHeart />
             </Button>
           </Group>
           {isAdmin && (
@@ -232,15 +219,25 @@ function CharactersView() {
       </Container>
       <Space h="50px" />
       <Group position="center">
-        <Button
-          component={Link}
-          to="/"
-          variant="gradient"
-          size="xs"
-          gradient={{ from: "blue", to: "purple", deg: 105 }}
+        <MantineProvider
+          theme={{
+            fontFamily: "Rajdhani, sans-serif",
+          }}
         >
-          Go back to Home
-        </Button>
+          <Button
+            size="md"
+            sx={{
+              backgroundColor: "#FFFFFF",
+              color: "black",
+              border: "2px solid #CA8DFD",
+              "&:hover": { backgroundColor: "#CA8DFD" },
+            }}
+            component={Link}
+            to="/characters"
+          >
+            Go back to view more Characters
+          </Button>
+        </MantineProvider>
       </Group>
       <Space h="50px" />
       <Footer />

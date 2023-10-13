@@ -27,6 +27,8 @@ import { fetchElements } from "../api/elements";
 import { fetchRegions } from "../api/regions";
 import { fetchWeapontypes } from "../api/weapontypes";
 import Footer from "../Footer";
+import { RxUpdate } from "react-icons/rx";
+import { AiOutlineRollback } from "react-icons/ai";
 
 function CharactersEdit() {
   const [cookies] = useCookies(["currentUser"]);
@@ -242,7 +244,7 @@ function CharactersEdit() {
                     setElement(event.target.value);
                   }}
                 >
-                  <option value="">All Elements</option>
+                  <option value="">Select Element</option>
                   {elementOptions.map((element) => {
                     return (
                       <option key={element._id} value={element._id}>
@@ -259,7 +261,7 @@ function CharactersEdit() {
                     setRegion(event.target.value);
                   }}
                 >
-                  <option value="">All Regions</option>
+                  <option value="">Select Region</option>
                   {regionOptions.map((region) => {
                     return (
                       <option key={region._id} value={region._id}>
@@ -276,7 +278,7 @@ function CharactersEdit() {
                     setWeapontype(event.target.value);
                   }}
                 >
-                  <option value="">All Weapon Typesw</option>
+                  <option value="">Select Weapon Type</option>
                   {weapontypeOptions.map((weapontype) => {
                     return (
                       <option key={weapontype._id} value={weapontype._id}>
@@ -333,23 +335,36 @@ function CharactersEdit() {
               </Grid.Col>
             </Grid>
             <Space h="20px" />
-            <Button fullWidth onClick={handleUpdateCharacters}>
+
+            <Button
+              fullWidth
+              size="md"
+              sx={{
+                color: "white",
+                border: "1px solid black",
+                background: "editcha" ? "black" : "none",
+                "&:hover": { backgroundColor: "#808080" },
+              }}
+              onClick={handleUpdateCharacters}
+            >
+              <RxUpdate />
               Update Character
             </Button>
           </Card>
+          <Space h="20px" />
+          <Group position="center">
+            <Button
+              component={Link}
+              to="/characters"
+              variant="gradient"
+              size="sm"
+              gradient={{ from: "blue", to: "purple", deg: 105 }}
+            >
+              <AiOutlineRollback />
+              Back to Characters
+            </Button>
+          </Group>
         </MantineProvider>
-        <Space h="20px" />
-        <Group position="center">
-          <Button
-            component={Link}
-            to="/characters"
-            variant="subtle"
-            size="xs"
-            color="gray"
-          >
-            Go back to Characters
-          </Button>
-        </Group>
         <Space h="50px" />
       </Container>
       <Footer />

@@ -157,7 +157,9 @@ export default function Elements() {
               ) : (
                 <Group position="center">
                   <Space h="120px" />
-                  <h1 className="text-center text-muted">No Element yet .</h1>
+                  <h1 className="text-center text-muted">
+                    No Element added yet .
+                  </h1>
                 </Group>
               )}
             </tbody>

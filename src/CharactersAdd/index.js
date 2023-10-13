@@ -22,6 +22,7 @@ import { useCookies } from "react-cookie";
 import { fetchElements } from "../api/elements";
 import { fetchRegions } from "../api/regions";
 import { fetchWeapontypes } from "../api/weapontypes";
+import { AiOutlinePlusSquare, AiOutlineRollback } from "react-icons/ai";
 import Footer from "../Footer";
 
 function CharactersAdd() {
@@ -220,7 +221,7 @@ function CharactersAdd() {
                     setElement(event.target.value);
                   }}
                 >
-                  <option value="">All Elements</option>
+                  <option value="">Select Element</option>
                   {elementOptions.map((element) => {
                     return (
                       <option key={element._id} value={element._id}>
@@ -237,7 +238,7 @@ function CharactersAdd() {
                     setRegion(event.target.value);
                   }}
                 >
-                  <option value="">All Regions</option>
+                  <option value="">Select Region</option>
                   {regionOptions.map((region) => {
                     return (
                       <option key={region._id} value={region._id}>
@@ -254,7 +255,7 @@ function CharactersAdd() {
                     setWeapontype(event.target.value);
                   }}
                 >
-                  <option value="">All Weapon Types</option>
+                  <option value="">Select Weapon Type</option>
                   {weapontypeOptions.map((weapontype) => {
                     return (
                       <option key={weapontype._id} value={weapontype._id}>
@@ -312,24 +313,36 @@ function CharactersAdd() {
               </Grid.Col>
             </Grid>
             <Space h="20px" />
-            <Button fullWidth onClick={handleAddNewCharacters}>
-              Add New Character
-            </Button>
+            <Group position="center">
+              <Button
+                size="md"
+                sx={{
+                  color: "white",
+                  border: "1px solid black",
+                  background: "addcha" ? "black" : "none",
+                  "&:hover": { backgroundColor: "#808080" },
+                }}
+                onClick={handleAddNewCharacters}
+              >
+                <AiOutlinePlusSquare /> New Character
+              </Button>
+            </Group>
           </Card>
+          <Space h="20px" />
+          <Group position="center">
+            <Button
+              component={Link}
+              to="/characters"
+              variant="gradient"
+              size="sm"
+              gradient={{ from: "blue", to: "purple", deg: 105 }}
+            >
+              <AiOutlineRollback />
+              Back to Characters
+            </Button>
+          </Group>
         </MantineProvider>
-        <Space h="20px" />
-        <Group position="center">
-          <Button
-            component={Link}
-            to="/characters"
-            variant="subtle"
-            size="xs"
-            color="gray"
-          >
-            Go back to Characters
-          </Button>
-        </Group>
-        <Space h="100px" />
+        <Space h="50px" />
       </Container>
       <Footer />
     </>

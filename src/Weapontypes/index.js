@@ -158,7 +158,7 @@ export default function Weapontypes() {
                 <Group position="center">
                   <Space h="120px" />
                   <h1 className="text-center text-muted">
-                    No Weapon Type yet .
+                    No Weapon Type added yet .
                   </h1>
                 </Group>
               )}

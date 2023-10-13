@@ -21,6 +21,7 @@ import {
   Container,
   MantineProvider,
 } from "@mantine/core";
+import { AiOutlinePlusSquare } from "react-icons/ai";
 
 export default function Cart() {
   const [checkedList, setCheckedList] = useState([]);
@@ -92,15 +93,15 @@ export default function Cart() {
   return (
     <>
       <Header title="Cart" page="favoritecart" />
-      <Container size="90%">
-        <Space h="20px" />
-        <Group position="center">
-          <Grid>
-            <MantineProvider
-              theme={{
-                fontFamily: "Rajdhani, sans-serif",
-              }}
-            >
+      <MantineProvider
+        theme={{
+          fontFamily: "Rajdhani, sans-serif",
+        }}
+      >
+        <Container size="90%">
+          <Space h="20px" />
+          <Group position="center">
+            <Grid>
               <Table highlightOnHover>
                 <thead>
                   <tr>
@@ -207,31 +208,43 @@ export default function Cart() {
                   <tr></tr>
                 </tbody>
               </Table>
-            </MantineProvider>
-          </Grid>
-        </Group>
+            </Grid>
+          </Group>
 
-        <Group position="apart">
-          <Button
-            color="red"
-            disabled={checkedList && checkedList.length > 0 ? false : true}
-            onClick={(event) => {
-              event.preventDefault();
-              deleteCheckedItems();
-            }}
-          >
-            Delete Selected
-          </Button>
-          <Button
-            component={Link}
-            to="/favoritesadd"
-            disabled={cart.length > 0 ? false : true}
-          >
-            Add to Favorites
-          </Button>
-        </Group>
-      </Container>
-      {/* </MantineProvider> */}
+          <Group position="apart">
+            <Button
+              sx={{
+                backgroundColor: "#FFFFFF",
+                color: "black",
+                border: "2px solid red",
+                "&:hover": { backgroundColor: "#FF0000" },
+              }}
+              size="md"
+              disabled={checkedList && checkedList.length > 0 ? false : true}
+              onClick={(event) => {
+                event.preventDefault();
+                deleteCheckedItems();
+              }}
+            >
+              Delete Selected
+            </Button>
+            <Button
+              component={Link}
+              to="/favoritesadd"
+              disabled={cart.length > 0 ? false : true}
+              size="md"
+              sx={{
+                color: "white",
+                border: "1px solid black",
+                background: "addcha" ? "black" : "none",
+                "&:hover": { backgroundColor: "#808080" },
+              }}
+            >
+              <AiOutlinePlusSquare /> to Favorites
+            </Button>
+          </Group>
+        </Container>
+      </MantineProvider>
       <Space h="50px" />
       <Footer />
     </>

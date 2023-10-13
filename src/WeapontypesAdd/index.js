@@ -17,6 +17,7 @@ import { notifications } from "@mantine/notifications";
 import { useMutation } from "@tanstack/react-query";
 import { addWeapontype, uploadWeapontypeImage } from "../api/weapontypes";
 import { useCookies } from "react-cookie";
+import { AiOutlinePlusSquare, AiOutlineRollback } from "react-icons/ai";
 
 function WeapontypeAdd() {
   const [cookies] = useCookies(["currentUser"]);
@@ -129,23 +130,36 @@ function WeapontypeAdd() {
               onChange={(event) => setInfo(event.target.value)}
             />
             <Space h="20px" />
-            <Button fullWidth onClick={handleAddNewWeapontype}>
-              Add New Weapontype
-            </Button>
+            <Group position="center">
+              <Button
+                size="md"
+                sx={{
+                  color: "white",
+                  border: "1px solid black",
+                  background: "addweatype" ? "black" : "none",
+                  "&:hover": { backgroundColor: "#808080" },
+                }}
+                onClick={handleAddNewWeapontype}
+              >
+                <AiOutlinePlusSquare />
+                New Weapontype
+              </Button>
+            </Group>
           </Card>
+          <Space h="20px" />
+          <Group position="center">
+            <Button
+              component={Link}
+              to="/weapontypes"
+              variant="gradient"
+              size="sm"
+              gradient={{ from: "blue", to: "purple", deg: 105 }}
+            >
+              <AiOutlineRollback />
+              Back to Weapon Types
+            </Button>
+          </Group>
         </MantineProvider>
-        <Space h="20px" />
-        <Group position="center">
-          <Button
-            component={Link}
-            to="/weapontypes"
-            variant="gradient"
-            size="xs"
-            gradient={{ from: "blue", to: "purple", deg: 105 }}
-          >
-            Go back to Weapon Types
-          </Button>
-        </Group>
         <Space h="50px" />
       </Container>
       <Footer />

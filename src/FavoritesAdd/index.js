@@ -12,6 +12,7 @@ import {
   Grid,
   Text,
   MantineProvider,
+  Group,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { notifications } from "@mantine/notifications";
@@ -19,6 +20,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import { useCookies } from "react-cookie";
 import { createFavorite } from "../api/favorite";
+import { AiOutlinePlusSquare } from "react-icons/ai";
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -120,14 +122,22 @@ export default function Checkout() {
                 onChange={(event) => setEmail(event.target.value)}
               />
               <Space h="20px" />
-              <Button
-                fullWidth
-                onClick={() => {
-                  doCheckout();
-                }}
-              >
-                Add to Favorites
-              </Button>
+              <Group position="center">
+                <Button
+                  size="md"
+                  sx={{
+                    color: "white",
+                    border: "1px solid black",
+                    background: "addfav" ? "black" : "none",
+                    "&:hover": { backgroundColor: "#808080" },
+                  }}
+                  onClick={() => {
+                    doCheckout();
+                  }}
+                >
+                  <AiOutlinePlusSquare /> to Favorites
+                </Button>
+              </Group>
             </Grid.Col>
             <Grid.Col span={5}>
               <Text size={"20px"} fw={500}>

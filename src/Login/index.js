@@ -6,6 +6,7 @@ import {
   Button,
   Group,
   PasswordInput,
+  MantineProvider,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Header from "../Header";
@@ -39,6 +40,7 @@ export default function Login() {
         title: error.response.data.message,
         color: "red",
       });
+      window.location.reload();
     },
   });
 
@@ -61,41 +63,58 @@ export default function Login() {
   return (
     <>
       <Header title="Login To Your Account" page="login" />
-      <Container size="90%">
-        <Space h="100px" />
-        <Card
-          withBorder
-          shadow="lg"
-          p="20px"
-          mx="auto"
-          sx={{
-            maxWidth: "500px",
-          }}
-        >
-          <TextInput
-            value={email}
-            placeholder="Email"
-            label="Email"
-            required
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <Space h="20px" />
-          <PasswordInput
-            value={password}
-            placeholder="Password"
-            label="Password"
-            visible={visible}
-            onVisibilityChange={toggle}
-            required
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <Space h="20px" />
-          <Group position="center">
-            <Button onClick={handleSubmit}>Submit</Button>
-          </Group>
-        </Card>
-        <Space h="100px" />
-      </Container>
+      <MantineProvider
+        theme={{
+          fontFamily: "Rajdhani, sans-serif",
+        }}
+      >
+        <Container size="90%">
+          <Space h="100px" />
+          <Card
+            withBorder
+            shadow="lg"
+            p="20px"
+            mx="auto"
+            sx={{
+              maxWidth: "500px",
+            }}
+          >
+            <TextInput
+              value={email}
+              placeholder="Email"
+              label="Email"
+              required
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <Space h="20px" />
+            <PasswordInput
+              value={password}
+              placeholder="Password"
+              label="Password"
+              visible={visible}
+              onVisibilityChange={toggle}
+              required
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <Space h="20px" />
+            <Group position="center">
+              <Button
+                size="md"
+                sx={{
+                  color: "white",
+                  border: "1px solid black",
+                  background: "addele" ? "black" : "none",
+                  "&:hover": { backgroundColor: "#808080" },
+                }}
+                onClick={handleSubmit}
+              >
+                Submit
+              </Button>
+            </Group>
+          </Card>
+          <Space h="100px" />
+        </Container>
+      </MantineProvider>
       <Footer />
     </>
   );

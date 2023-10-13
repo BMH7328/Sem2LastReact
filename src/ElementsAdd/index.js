@@ -17,6 +17,7 @@ import { notifications } from "@mantine/notifications";
 import { useMutation } from "@tanstack/react-query";
 import { addElement, uploadElementImage } from "../api/elements";
 import { useCookies } from "react-cookie";
+import { AiOutlinePlusSquare, AiOutlineRollback } from "react-icons/ai";
 
 function ElementAdd() {
   const [cookies] = useCookies(["currentUser"]);
@@ -129,23 +130,35 @@ function ElementAdd() {
               onChange={(event) => setArchon(event.target.value)}
             />
             <Space h="20px" />
-            <Button fullWidth onClick={handleAddNewElement}>
-              Add New Element
-            </Button>
+            <Group position="center">
+              <Button
+                size="md"
+                sx={{
+                  color: "white",
+                  border: "1px solid black",
+                  background: "addele" ? "black" : "none",
+                  "&:hover": { backgroundColor: "#808080" },
+                }}
+                onClick={handleAddNewElement}
+              >
+                <AiOutlinePlusSquare /> New Elements
+              </Button>
+            </Group>
           </Card>
+          <Space h="20px" />
+          <Group position="center">
+            <Button
+              component={Link}
+              to="/elements"
+              variant="gradient"
+              size="sm"
+              gradient={{ from: "blue", to: "purple", deg: 105 }}
+            >
+              <AiOutlineRollback />
+              Back to Elements
+            </Button>
+          </Group>
         </MantineProvider>
-        <Space h="20px" />
-        <Group position="center">
-          <Button
-            component={Link}
-            to="/elements"
-            variant="gradient"
-            size="xs"
-            gradient={{ from: "blue", to: "purple", deg: 105 }}
-          >
-            Go back to Elements
-          </Button>
-        </Group>
         <Space h="50px" />
       </Container>
       <Footer />

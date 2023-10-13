@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { BackgroundImage } from "@mantine/core";
 import { clearCartItems } from "../api/cart";
+import { AiOutlineUserAdd, AiOutlineLogin } from "react-icons/ai";
 
 export default function Header({ title, page = "" }) {
   const [cookies, setCookies, removeCookies] = useCookies(["currentUser"]);
@@ -202,7 +203,7 @@ export default function Header({ title, page = "" }) {
                         "&:hover": { backgroundColor: "#FFFFFF" },
                       }}
                     >
-                      Login
+                      <AiOutlineLogin />
                     </Button>
                     <Button
                       component={Link}
@@ -214,7 +215,7 @@ export default function Header({ title, page = "" }) {
                         "&:hover": { backgroundColor: "#FFFFFF" },
                       }}
                     >
-                      Sign Up
+                      <AiOutlineUserAdd />
                     </Button>
                   </MantineProvider>
                 </>

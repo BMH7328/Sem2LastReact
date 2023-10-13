@@ -17,6 +17,7 @@ import { notifications } from "@mantine/notifications";
 import { useMutation } from "@tanstack/react-query";
 import { addRegion, uploadRegionImage } from "../api/regions";
 import { useCookies } from "react-cookie";
+import { AiOutlinePlusSquare, AiOutlineRollback } from "react-icons/ai";
 
 function RegionAdd() {
   const [cookies] = useCookies(["currentUser"]);
@@ -118,23 +119,36 @@ function RegionAdd() {
               </Dropzone>
             )}
             <Space h="20px" />
-            <Button fullWidth onClick={handleAddNewRegion}>
-              Add New Region
-            </Button>
+            <Group position="center">
+              <Button
+                size="md"
+                sx={{
+                  color: "white",
+                  border: "1px solid black",
+                  background: "addreg" ? "black" : "none",
+                  "&:hover": { backgroundColor: "#808080" },
+                }}
+                onClick={handleAddNewRegion}
+              >
+                <AiOutlinePlusSquare /> New Region
+              </Button>
+            </Group>
           </Card>
+
+          <Space h="20px" />
+          <Group position="center">
+            <Button
+              component={Link}
+              to="/regions"
+              variant="gradient"
+              size="sm"
+              gradient={{ from: "blue", to: "purple", deg: 105 }}
+            >
+              <AiOutlineRollback />
+              Back to Regions
+            </Button>
+          </Group>
         </MantineProvider>
-        <Space h="20px" />
-        <Group position="center">
-          <Button
-            component={Link}
-            to="/regions"
-            variant="gradient"
-            size="xs"
-            gradient={{ from: "blue", to: "purple", deg: 105 }}
-          >
-            Go back to Regions
-          </Button>
-        </Group>
         <Space h="50px" />
       </Container>
       <Footer />
