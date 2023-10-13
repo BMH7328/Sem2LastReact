@@ -350,11 +350,16 @@ function Characters() {
                             addToCartMutation.mutate(character);
                           } else {
                             notifications.show({
-                              title: "Please login to proceed",
+                              title: "Please Login To Add",
                               message: (
                                 <>
                                   <Button
-                                    color="red"
+                                    sx={{
+                                      backgroundColor: "#FFFFFF",
+                                      color: "black",
+                                      border: "2px solid red",
+                                      "&:hover": { backgroundColor: "#FF0000" },
+                                    }}
                                     onClick={() => {
                                       navigate("/login");
                                       notifications.clean();
@@ -381,11 +386,16 @@ function Characters() {
                             navigate("/views/" + character._id);
                           } else {
                             notifications.show({
-                              title: "Please login to proceed",
+                              title: "Please Login To View More",
                               message: (
                                 <>
                                   <Button
-                                    color="red"
+                                    sx={{
+                                      backgroundColor: "#FFFFFF",
+                                      color: "black",
+                                      border: "2px solid red",
+                                      "&:hover": { backgroundColor: "#FF0000" },
+                                    }}
                                     onClick={() => {
                                       navigate("/login");
                                       notifications.clean();

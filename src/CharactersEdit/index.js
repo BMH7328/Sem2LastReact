@@ -51,9 +51,9 @@ function CharactersEdit() {
     onSuccess: (data) => {
       setName(data.name);
       setQuality(data.quality);
-      setElement(data.element);
-      setWeapontype(data.weapontype);
-      setRegion(data.region);
+      setElement(data.element._id);
+      setWeapontype(data.weapontype._id);
+      setRegion(data.region._id);
       setBirthday(data.birthday);
       setReleaseDate(data.release_date);
       setImage(data.image);
@@ -276,7 +276,7 @@ function CharactersEdit() {
                     setWeapontype(event.target.value);
                   }}
                 >
-                  <option value="">All Weapon Types</option>
+                  <option value="">All Weapon Typesw</option>
                   {weapontypeOptions.map((weapontype) => {
                     return (
                       <option key={weapontype._id} value={weapontype._id}>

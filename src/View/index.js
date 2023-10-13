@@ -7,7 +7,7 @@ import {
   Button,
   Group,
   Image,
-  BackgroundImage,
+  Divider,
   MantineProvider,
 } from "@mantine/core";
 import Footer from "../Footer";
@@ -104,7 +104,8 @@ function CharactersView() {
             </Title>
           </MantineProvider>
           <br />
-
+          <Divider />
+          <br />
           <MantineProvider theme={{ fontFamily: "Teko, sans-serif" }}>
             <Text align="center" size={"40px"}>
               Release On: {releaseDate}

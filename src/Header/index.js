@@ -7,12 +7,14 @@ import {
   Avatar,
   MantineProvider,
 } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { BackgroundImage } from "@mantine/core";
+import { clearCartItems } from "../api/cart";
 
 export default function Header({ title, page = "" }) {
   const [cookies, setCookies, removeCookies] = useCookies(["currentUser"]);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -23,7 +25,13 @@ export default function Header({ title, page = "" }) {
             fontFamily: "Raleway, sans-serif",
           }}
         >
-          <Title align="center" color="gold" fs="italic" weight={200}>
+          <Title
+            align="center"
+            color="gold"
+            fs="italic"
+            weight={200}
+            size="60px"
+          >
             {title}
           </Title>
         </MantineProvider>
@@ -168,6 +176,9 @@ export default function Header({ title, page = "" }) {
                       onClick={() => {
                         // clear the currentUser cookie to logout
                         removeCookies("currentUser");
+                        clearCartItems();
+                        // navigate("/");
+                        window.location.reload();
                       }}
                     >
                       Logout

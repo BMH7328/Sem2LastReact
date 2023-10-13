@@ -174,17 +174,23 @@ function Weapons() {
                 borderRadius: "auto",
               }}
             >
-              <Input
-                type="text"
-                placeholder="Search"
-                value={searchTerm}
-                radius="xl"
-                rightSection={<AiOutlineSearch />}
-                onChange={(event) => {
-                  setSearchTerm(event.target.value);
-                  setCurrentPage(1);
+              <MantineProvider
+                theme={{
+                  fontFamily: "Rajdhani, sans-serif",
                 }}
-              />
+              >
+                <Input
+                  type="text"
+                  placeholder="Search"
+                  value={searchTerm}
+                  radius="xl"
+                  rightSection={<AiOutlineSearch />}
+                  onChange={(event) => {
+                    setSearchTerm(event.target.value);
+                    setCurrentPage(1);
+                  }}
+                />
+              </MantineProvider>
             </div>
           </Group>
           <Group position="right">
