@@ -1,4 +1,5 @@
 import {
+  Text,
   Title,
   Grid,
   Card,
@@ -9,6 +10,7 @@ import {
   Image,
   Input,
   Container,
+  MantineProvider,
 } from "@mantine/core";
 import Header from "../Header";
 import Footer from "../Footer";
@@ -170,7 +172,7 @@ function Characters() {
         queryKey: ["cart"],
       });
       notifications.show({
-        title: "Product Added to Cart",
+        title: "Character Added to Cart",
         color: "green",
       });
     },
@@ -183,14 +185,25 @@ function Characters() {
         <Space h="20px" />
         <Group position="right">
           {isAdmin && (
-            <Button
-              component={Link}
-              to="/characters_add"
-              variant="gradient"
-              gradient={{ from: "yellow", to: "purple", deg: 105 }}
+            <MantineProvider
+              theme={{
+                fontFamily: "Rajdhani, sans-serif",
+              }}
             >
-              Add New
-            </Button>
+              <Button
+                component={Link}
+                to="/characters_add"
+                size="md"
+                sx={{
+                  color: "white",
+                  border: "1px solid black",
+                  background: "1" ? "black" : "none",
+                  "&:hover": { backgroundColor: "#808080" },
+                }}
+              >
+                Add New
+              </Button>
+            </MantineProvider>
           )}
         </Group>
         <Space h="20px" />
@@ -201,17 +214,23 @@ function Characters() {
                 borderRadius: "auto",
               }}
             >
-              <Input
-                type="text"
-                placeholder="Search"
-                value={searchTerm}
-                radius="xl"
-                rightSection={<AiOutlineSearch />}
-                onChange={(event) => {
-                  setSearchTerm(event.target.value);
-                  setCurrentPage(1);
+              <MantineProvider
+                theme={{
+                  fontFamily: "Rajdhani, sans-serif",
                 }}
-              />
+              >
+                <Input
+                  type="text"
+                  placeholder="Search"
+                  value={searchTerm}
+                  radius="xl"
+                  rightSection={<AiOutlineSearch />}
+                  onChange={(event) => {
+                    setSearchTerm(event.target.value);
+                    setCurrentPage(1);
+                  }}
+                />
+              </MantineProvider>
             </div>
           </Group>
           <Group position="right">
@@ -291,7 +310,7 @@ function Characters() {
           </Group>
         </Group>
         <Space h="20px" />
-        <Grid>
+        <Grid gutter={"50px"}>
           {currentCharacters
             ? currentCharacters.map((character) => {
                 return (
@@ -304,13 +323,24 @@ function Characters() {
                         mx={"auto"}
                       />
                       <Space h="20px" />
-                      <Title order={5}>{character.name}</Title>
-                      <Group position="apart" spacing="5px">
-                        <Badge color="green">{character.quality}</Badge>
-                        <Badge color="yellow">
-                          {character.weapontype.name}
-                        </Badge>
-                      </Group>
+                      <MantineProvider
+                        theme={{
+                          fontFamily: "Raleway, sans-serif",
+                        }}
+                      >
+                        <Title order={3}>{character.name}</Title>
+                        <Space h="20px" />
+                        <Group position="apart" spacing="5px">
+                          <Badge color="yellow">
+                            <Text color="dark">{character.quality}</Text>
+                          </Badge>
+                          <Badge color="red">
+                            <Text color="dark">
+                              {character.weapontype.name}
+                            </Text>
+                          </Badge>
+                        </Group>
+                      </MantineProvider>
                       <Space h="20px" />
                       <Button
                         fullWidth
@@ -377,28 +407,42 @@ function Characters() {
                         <>
                           <Space h="20px" />
                           <Group position="apart">
-                            <Button
-                              component={Link}
-                              to={"/characters/" + character._id}
-                              color="blue"
-                              size="xs"
-                              radius="50px"
-                            >
-                              Edit
-                            </Button>
-                            <Button
-                              color="red"
-                              size="xs"
-                              radius="50px"
-                              onClick={() => {
-                                deleteMutation.mutate({
-                                  id: character._id,
-                                  token: currentUser ? currentUser.token : "",
-                                });
+                            <MantineProvider
+                              theme={{
+                                fontFamily: "Rajdhani, sans-serif",
                               }}
                             >
-                              Delete
-                            </Button>
+                              <Button
+                                component={Link}
+                                to={"/characters/" + character._id}
+                                size="sm"
+                                sx={{
+                                  color: "white",
+                                  border: "1px solid black",
+                                  background: "6" ? "black" : "none",
+                                  "&:hover": { backgroundColor: "#808080" },
+                                }}
+                              >
+                                Edit
+                              </Button>
+                              <Button
+                                sx={{
+                                  backgroundColor: "#FFFFFF",
+                                  color: "black",
+                                  border: "2px solid red",
+                                  "&:hover": { backgroundColor: "#FF0000" },
+                                }}
+                                size="sm"
+                                onClick={() => {
+                                  deleteMutation.mutate({
+                                    id: character._id,
+                                    token: currentUser ? currentUser.token : "",
+                                  });
+                                }}
+                              >
+                                Delete
+                              </Button>
+                            </MantineProvider>
                           </Group>
                         </>
                       )}

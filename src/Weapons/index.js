@@ -1,4 +1,5 @@
 import {
+  Text,
   Title,
   Grid,
   Card,
@@ -8,8 +9,8 @@ import {
   Button,
   Image,
   Input,
-  Text,
   Container,
+  MantineProvider,
 } from "@mantine/core";
 import Header from "../Header";
 import Footer from "../Footer";
@@ -131,7 +132,7 @@ function Weapons() {
         queryKey: ["cart"],
       });
       notifications.show({
-        title: "Product Added to Cart",
+        title: "Weapon Added to Cart",
         color: "green",
       });
     },
@@ -144,14 +145,25 @@ function Weapons() {
         <Space h="20px" />
         <Group position="right">
           {isAdmin && (
-            <Button
-              component={Link}
-              to="/weapons_add"
-              variant="gradient"
-              gradient={{ from: "yellow", to: "purple", deg: 105 }}
+            <MantineProvider
+              theme={{
+                fontFamily: "Rajdhani, sans-serif",
+              }}
             >
-              Add New
-            </Button>
+              <Button
+                component={Link}
+                to="/weapons_add"
+                size="md"
+                sx={{
+                  color: "white",
+                  border: "1px solid black",
+                  background: "2" ? "black" : "none",
+                  "&:hover": { backgroundColor: "#808080" },
+                }}
+              >
+                Add New
+              </Button>
+            </MantineProvider>
           )}
         </Group>
         <Space h="20px" />
@@ -218,15 +230,21 @@ function Weapons() {
           </Group>
         </Group>
         <Space h="20px" />
-        <Grid>
+        <Grid gutter={"50px"}>
           {currentWeapons
             ? currentWeapons.map((weapon) => {
                 return (
                   <Grid.Col key={weapon._id} lg={4} md={6} sm={6} xs={12}>
                     <Card withBorder shadow="sm" p="20px" mx={"auto"}>
-                      <Text fs="italic" size="xl">
-                        Release On: {weapon.release_date}
-                      </Text>
+                      <MantineProvider
+                        theme={{
+                          fontFamily: "Raleway, sans-serif",
+                        }}
+                      >
+                        <Text fs="italic" size="xl">
+                          Release On: {weapon.release_date}
+                        </Text>
+                      </MantineProvider>
                       <Image
                         src={"http://localhost:5000/" + weapon.image}
                         width="300px"
@@ -234,15 +252,23 @@ function Weapons() {
                         mx={"auto"}
                       />
                       <Space h="20px" />
-                      <Title order={3}>{weapon.name}</Title>
-                      <Group position="apart" spacing="5px">
-                        <Badge color="yellow" size="lg">
-                          {weapon.quality}
-                        </Badge>
-                        <Badge color="red" size="lg">
-                          {weapon.weapontype.name}
-                        </Badge>
-                      </Group>
+                      <MantineProvider
+                        theme={{
+                          fontFamily: "Raleway, sans-serif",
+                        }}
+                      >
+                        <Title order={3}>{weapon.name}</Title>
+
+                        <Space h="20px" />
+                        <Group position="apart" spacing="5px">
+                          <Badge color="yellow" size="lg">
+                            <Text color="dark">{weapon.quality}</Text>
+                          </Badge>
+                          <Badge color="red" size="lg">
+                            <Text color="dark">{weapon.weapontype.name}</Text>
+                          </Badge>
+                        </Group>
+                      </MantineProvider>
                       <Space h="20px" />
                       <Button
                         fullWidth
@@ -278,28 +304,42 @@ function Weapons() {
                         <>
                           <Space h="20px" />
                           <Group position="apart">
-                            <Button
-                              component={Link}
-                              to={"/weapons/" + weapon._id}
-                              color="blue"
-                              size="xs"
-                              radius="50px"
-                            >
-                              Edit
-                            </Button>
-                            <Button
-                              color="red"
-                              size="xs"
-                              radius="50px"
-                              onClick={() => {
-                                deleteMutation.mutate({
-                                  id: weapon._id,
-                                  token: currentUser ? currentUser.token : "",
-                                });
+                            <MantineProvider
+                              theme={{
+                                fontFamily: "Rajdhani, sans-serif",
                               }}
                             >
-                              Delete
-                            </Button>
+                              <Button
+                                component={Link}
+                                to={"/weapons/" + weapon._id}
+                                size="sm"
+                                sx={{
+                                  color: "white",
+                                  border: "1px solid black",
+                                  background: "7" ? "black" : "none",
+                                  "&:hover": { backgroundColor: "#808080" },
+                                }}
+                              >
+                                Edit
+                              </Button>
+                              <Button
+                                sx={{
+                                  backgroundColor: "#FFFFFF",
+                                  color: "black",
+                                  border: "2px solid red",
+                                  "&:hover": { backgroundColor: "#FF0000" },
+                                }}
+                                size="sm"
+                                onClick={() => {
+                                  deleteMutation.mutate({
+                                    id: weapon._id,
+                                    token: currentUser ? currentUser.token : "",
+                                  });
+                                }}
+                              >
+                                Delete
+                              </Button>
+                            </MantineProvider>
                           </Group>
                         </>
                       )}

@@ -9,6 +9,7 @@ import {
   Group,
   Image,
   Grid,
+  MantineProvider,
 } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,6 +19,7 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { addWeapon, uploadWeaponImage } from "../api/weapons";
 import { useCookies } from "react-cookie";
 import { fetchWeapontypes } from "../api/weapontypes";
+import Footer from "../Footer";
 
 function WeaponsAdd() {
   const [cookies] = useCookies(["currentUser"]);
@@ -55,7 +57,7 @@ function WeaponsAdd() {
         title: "Weapon Added",
         color: "green",
       });
-      navigate("/");
+      navigate("/weapons");
     },
     onError: (error) => {
       notifications.show({
@@ -100,103 +102,121 @@ function WeaponsAdd() {
   };
 
   return (
-    <Container>
-      <Space h="50px" />
-      <Title order={2} align="center">
-        Add Weapon
-      </Title>
-      <Space h="50px" />
-      <Card withBorder shadow="md" p="20px">
-        <Grid gutter={20}>
-          <Grid.Col span={6}>
-            <TextInput
-              value={name}
-              placeholder="Enter the weapon name here"
-              label="Name"
-              description="The name of the weapon"
-              withAsterisk
-              onChange={(event) => setName(event.target.value)}
-            />
-          </Grid.Col>
-          <Space h="20px" />
-          <Grid.Col span={6}>
-            <TextInput
-              value={quality}
-              placeholder="Enter the weapon quality here"
-              label="Quality"
-              description="The quality of the weapon"
-              withAsterisk
-              onChange={(event) => setQuality(event.target.value)}
-            />
-          </Grid.Col>
-          <Space h="20px" />
-          <Grid.Col>
-            {image && image !== "" ? (
-              <>
-                <Image src={"http://localhost:5000/" + image} width="100%" />
-                <Button color="dark" mt="15px" onClick={() => setImage("")}>
-                  Remove Image
-                </Button>
-              </>
-            ) : (
-              <Dropzone
-                mutiple={false}
-                accept={IMAGE_MIME_TYPE}
-                onDrop={(files) => {
-                  handleImageUpload(files);
-                }}
-              >
-                <Title order={4} align="center" py="20px">
-                  Click To Upload Or Drag Image To Upload
-                </Title>
-              </Dropzone>
-            )}
-          </Grid.Col>
-          <Space h="20px" />
-          <Divider />
-          <Space h="20px" />
-          <Grid.Col span={6}>
-            <select
-              value={weapontype}
-              onChange={(event) => {
-                setWeapontype(event.target.value);
-              }}
-            >
-              <option value="">All Weapon Types</option>
-              {weapontypeOptions.map((weapontype) => {
-                return (
-                  <option key={weapontype._id} value={weapontype._id}>
-                    {weapontype.name}
-                  </option>
-                );
-              })}
-            </select>
-          </Grid.Col>
-          <Space h="20px" />
-          <Grid.Col span={6}>
-            <TextInput
-              value={releaseDate}
-              placeholder="Enter the character release date here"
-              label="Release Date"
-              description="The release date of the character"
-              withAsterisk
-              onChange={(event) => setReleaseDate(event.target.value)}
-            />
-          </Grid.Col>
-        </Grid>
+    <>
+      <Container>
+        <Space h="50px" />
+        <Title order={2} align="center">
+          Add Weapon
+        </Title>
+        <Space h="50px" />
+        <MantineProvider
+          theme={{
+            fontFamily: "Rajdhani, sans-serif",
+          }}
+        >
+          <Card withBorder shadow="md" p="20px">
+            <Grid gutter={20}>
+              <Grid.Col span={6}>
+                <TextInput
+                  value={name}
+                  placeholder="Enter the weapon name here"
+                  label="Name"
+                  description="The name of the weapon"
+                  withAsterisk
+                  onChange={(event) => setName(event.target.value)}
+                />
+              </Grid.Col>
+              <Space h="20px" />
+              <Grid.Col span={6}>
+                <TextInput
+                  value={quality}
+                  placeholder="Enter the weapon quality here"
+                  label="Quality"
+                  description="The quality of the weapon"
+                  withAsterisk
+                  onChange={(event) => setQuality(event.target.value)}
+                />
+              </Grid.Col>
+              <Space h="20px" />
+              <Grid.Col>
+                {image && image !== "" ? (
+                  <>
+                    <Image
+                      src={"http://localhost:5000/" + image}
+                      width="100%"
+                    />
+                    <Button color="dark" mt="15px" onClick={() => setImage("")}>
+                      Remove Image
+                    </Button>
+                  </>
+                ) : (
+                  <Dropzone
+                    mutiple={false}
+                    accept={IMAGE_MIME_TYPE}
+                    onDrop={(files) => {
+                      handleImageUpload(files);
+                    }}
+                  >
+                    <Title order={4} align="center" py="20px">
+                      Click To Upload Or Drag Image To Upload
+                    </Title>
+                  </Dropzone>
+                )}
+              </Grid.Col>
+              <Space h="20px" />
+              <Divider />
+              <Space h="20px" />
+              <Grid.Col span={6}>
+                <select
+                  value={weapontype}
+                  onChange={(event) => {
+                    setWeapontype(event.target.value);
+                  }}
+                >
+                  <option value="">All Weapon Types</option>
+                  {weapontypeOptions.map((weapontype) => {
+                    return (
+                      <option key={weapontype._id} value={weapontype._id}>
+                        {weapontype.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </Grid.Col>
+              <Space h="20px" />
+              <Grid.Col span={6}>
+                <TextInput
+                  value={releaseDate}
+                  placeholder="Enter the weapon release date here"
+                  label="Release Date"
+                  description="The release date of the weapon"
+                  withAsterisk
+                  onChange={(event) => setReleaseDate(event.target.value)}
+                />
+              </Grid.Col>
+            </Grid>
+            <Space h="20px" />
+            <Button fullWidth onClick={handleAddNewWeapons}>
+              Add New Weapon
+            </Button>
+          </Card>
+        </MantineProvider>
         <Space h="20px" />
-        <Button fullWidth onClick={handleAddNewWeapons}>
-          Add New Weapon
-        </Button>
-      </Card>
-      <Space h="20px" />
-      <Group position="center">
-        <Button component={Link} to="/" variant="subtle" size="xs" color="gray">
-          Go back to Home
-        </Button>
-      </Group>
-      <Space h="100px" />
-    </Container>
+        <Group position="center">
+          <Button
+            component={Link}
+            to="/weapons"
+            variant="subtle"
+            size="xs"
+            color="gray"
+          >
+            Go back to Weapons
+          </Button>
+        </Group>
+        <Space h="100px" />
+      </Container>
+      <Footer />
+    </>
   );
 }
 

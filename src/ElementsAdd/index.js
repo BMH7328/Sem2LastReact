@@ -8,9 +8,9 @@ import {
   Button,
   Group,
   Image,
+  MantineProvider,
 } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import Header from "../Header";
 import Footer from "../Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { notifications } from "@mantine/notifications";
@@ -78,63 +78,72 @@ function ElementAdd() {
 
   return (
     <>
-      <Header title="Add New Element" page="elements_add" />
       <Container>
         <Space h="50px" />
-        <Card withBorder shadow="md" p="20px">
-          <TextInput
-            value={name}
-            placeholder="Enter the element name here"
-            label="Name"
-            description="The name of the element"
-            withAsterisk
-            onChange={(event) => setName(event.target.value)}
-          />
-          <Space h="20px" />
-          {image && image !== "" ? (
-            <>
-              <Image src={"http://localhost:5000/" + image} width="100%" />
-              <Button color="dark" mt="15px" onClick={() => setImage("")}>
-                Remove Image
-              </Button>
-            </>
-          ) : (
-            <Dropzone
-              mutiple={false}
-              accept={IMAGE_MIME_TYPE}
-              onDrop={(files) => {
-                handleImageUpload(files);
-              }}
-            >
-              <Title order={4} align="center" py="20px">
-                Click To Upload Or Drag Image To Upload
-              </Title>
-            </Dropzone>
-          )}
-          <Space h="20px" />
-          <TextInput
-            value={archon}
-            placeholder="Enter the element archon here"
-            label="Archon"
-            description="The archon of the element"
-            withAsterisk
-            onChange={(event) => setArchon(event.target.value)}
-          />
-          <Space h="20px" />
-          <Button fullWidth onClick={handleAddNewElement}>
-            Add New Element
-          </Button>
-        </Card>
+        <Title order={2} align="center">
+          Add New Elements
+        </Title>
+        <Space h="50px" />
+        <MantineProvider
+          theme={{
+            fontFamily: "Rajdhani, sans-serif",
+          }}
+        >
+          <Card withBorder shadow="md" p="20px">
+            <TextInput
+              value={name}
+              placeholder="Enter the element name here"
+              label="Name"
+              description="The name of the element"
+              withAsterisk
+              onChange={(event) => setName(event.target.value)}
+            />
+            <Space h="20px" />
+            {image && image !== "" ? (
+              <>
+                <Image src={"http://localhost:5000/" + image} width="100%" />
+                <Button color="dark" mt="15px" onClick={() => setImage("")}>
+                  Remove Image
+                </Button>
+              </>
+            ) : (
+              <Dropzone
+                mutiple={false}
+                accept={IMAGE_MIME_TYPE}
+                onDrop={(files) => {
+                  handleImageUpload(files);
+                }}
+              >
+                <Title order={4} align="center" py="20px">
+                  Click To Upload Or Drag Image To Upload
+                </Title>
+              </Dropzone>
+            )}
+            <Space h="20px" />
+            <TextInput
+              value={archon}
+              placeholder="Enter the element archon here"
+              label="Archon"
+              description="The archon of the element"
+              withAsterisk
+              onChange={(event) => setArchon(event.target.value)}
+            />
+            <Space h="20px" />
+            <Button fullWidth onClick={handleAddNewElement}>
+              Add New Element
+            </Button>
+          </Card>
+        </MantineProvider>
         <Space h="20px" />
         <Group position="center">
           <Button
             component={Link}
-            to="/"
+            to="/elements"
             variant="gradient"
             size="xs"
             gradient={{ from: "blue", to: "purple", deg: 105 }}
           >
-            Go back to Home
+            Go back to Elements
           </Button>
         </Group>
         <Space h="50px" />

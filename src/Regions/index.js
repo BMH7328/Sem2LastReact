@@ -1,5 +1,14 @@
 import { Link } from "react-router-dom";
-import { Group, Space, Button, Image, Table, Container } from "@mantine/core";
+import {
+  Group,
+  Space,
+  Button,
+  Image,
+  Table,
+  Container,
+  Text,
+  MantineProvider,
+} from "@mantine/core";
 import { useMemo } from "react";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { fetchRegions, deleteRegion } from "../api/regions";
@@ -45,75 +54,107 @@ export default function Regions() {
         <Space h="20px" />{" "}
         <Group position="right">
           {isAdmin && (
-            <Button
-              component={Link}
-              to="/regions_add"
-              variant="gradient"
-              gradient={{ from: "yellow", to: "purple", deg: 105 }}
+            <MantineProvider
+              theme={{
+                fontFamily: "Rajdhani, sans-serif",
+              }}
             >
-              Add New Region
-            </Button>
+              <Button
+                component={Link}
+                to="/regions_add"
+                size="md"
+                sx={{
+                  color: "white",
+                  border: "1px solid black",
+                  background: "4" ? "black" : "none",
+                  "&:hover": { backgroundColor: "#808080" },
+                }}
+              >
+                Add New Region
+              </Button>
+            </MantineProvider>
           )}
         </Group>
         <Space h="20px" />
-        <Table horizontalSpacing="xl" striped>
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {regions ? (
-              regions.map((region) => {
-                return (
-                  <tr key={region._id}>
-                    <td>
-                      {region.image && region.image !== "" ? (
-                        <>
+        <MantineProvider
+          theme={{
+            fontFamily: "Rajdhani, sans-serif",
+          }}
+        >
+          <Table horizontalSpacing="xl" striped>
+            <thead>
+              <tr>
+                <th>
+                  <Text size={"20px"}>Image</Text>
+                </th>
+                <th>
+                  <Text size={"20px"}>Name</Text>
+                </th>
+                <th>
+                  <Text size={"20px"}>Actions</Text>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {regions ? (
+                regions.map((region) => {
+                  return (
+                    <tr key={region._id}>
+                      <td>
+                        {region.image && region.image !== "" ? (
+                          <>
+                            <Image
+                              src={"http://localhost:5000/" + region.image}
+                              width="500px"
+                            />
+                          </>
+                        ) : (
                           <Image
-                            src={"http://localhost:5000/" + region.image}
-                            width="500px"
+                            src={
+                              "https://www.aachifoods.com/templates/default-new/images/no-prd.jpg"
+                            }
+                            width="100px"
                           />
-                        </>
-                      ) : (
-                        <Image
-                          src={
-                            "https://www.aachifoods.com/templates/default-new/images/no-prd.jpg"
-                          }
-                          width="100px"
-                        />
-                      )}
-                    </td>
-                    <td>{region.name}</td>
-                    <td>
-                      {isAdmin && (
-                        <Button
-                          variant="outline"
-                          color="red"
-                          onClick={() => {
-                            deleteMutation.mutate({
-                              id: region._id,
-                              token: currentUser ? currentUser.token : "",
-                            });
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
-              <Group position="center">
-                <Space h="120px" />
-                <h1 className="text-center text-muted">No Region yet .</h1>
-              </Group>
-            )}
-          </tbody>
-        </Table>
+                        )}
+                      </td>
+                      <td>
+                        <Text weight={500} size={"20px"}>
+                          {region.name}
+                        </Text>
+                      </td>
+                      <td>
+                        {isAdmin && (
+                          <Button
+                            sx={{
+                              backgroundColor: "#FFFFFF",
+                              color: "black",
+                              border: "2px solid red",
+                              "&:hover": { backgroundColor: "#FF0000" },
+                            }}
+                            position="right"
+                            onClick={() => {
+                              deleteMutation.mutate({
+                                id: region._id,
+                                token: currentUser ? currentUser.token : "",
+                              });
+                            }}
+                          >
+                            Delete
+                          </Button>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <Group position="center">
+                  <Space h="120px" />
+                  <h1 className="text-center text-muted">No Region yet .</h1>
+                </Group>
+              )}
+            </tbody>
+          </Table>
+        </MantineProvider>
       </Container>
       <Space h="50px" />
       <Footer />

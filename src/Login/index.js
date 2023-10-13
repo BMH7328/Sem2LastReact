@@ -9,11 +9,12 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Header from "../Header";
+import Footer from "../Footer";
 import { useState } from "react";
 import { loginUser } from "../api/auth";
 import { useMutation } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 export default function Login() {
@@ -61,7 +62,7 @@ export default function Login() {
     <>
       <Header title="Login To Your Account" page="login" />
       <Container size="90%">
-        <Space h="50px" />
+        <Space h="100px" />
         <Card
           withBorder
           shadow="lg"
@@ -93,19 +94,9 @@ export default function Login() {
             <Button onClick={handleSubmit}>Submit</Button>
           </Group>
         </Card>
-        <Space h="20px" />
-        <Group position="center">
-          <Button
-            component={Link}
-            to="/"
-            variant="subtle"
-            size="xs"
-            color="gray"
-          >
-            Go back to Home
-          </Button>
-        </Group>
+        <Space h="100px" />
       </Container>
+      <Footer />
     </>
   );
 }

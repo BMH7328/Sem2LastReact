@@ -10,10 +10,13 @@ import {
   Space,
   TextInput,
   Grid,
+  Text,
+  MantineProvider,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { notifications } from "@mantine/notifications";
 import Header from "../Header";
+import Footer from "../Footer";
 import { useCookies } from "react-cookie";
 import { createFavorite } from "../api/favorite";
 
@@ -87,98 +90,106 @@ export default function Checkout() {
   return (
     <>
       <Header title="Add to Favorites" page="favoritesadd" />
-      <Container>
-        <Space h="35px" />
-        <Grid>
-          <Grid.Col span={7}>
-            <Title order={3} align="center">
-              Contact Information
-            </Title>
-            <Space h="20px" />
-            <TextInput
-              value={name}
-              placeholder="Name"
-              label="Name"
-              required
-              onChange={(event) => setName(event.target.value)}
-            />
-            <Space h="20px" />
+      <MantineProvider
+        theme={{
+          fontFamily: "Rajdhani, sans-serif",
+        }}
+      >
+        <Container>
+          <Space h="50px" />
+          <Grid>
+            <Grid.Col span={7}>
+              <Title order={3} align="center">
+                Contact Information
+              </Title>
+              <Space h="20px" />
+              <TextInput
+                value={name}
+                placeholder="Name"
+                label="Name"
+                required
+                onChange={(event) => setName(event.target.value)}
+              />
+              <Space h="20px" />
 
-            <TextInput
-              value={email}
-              placeholder="Email address"
-              label="Email"
-              required
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <Space h="20px" />
-
-            <Button
-              fullWidth
-              onClick={() => {
-                doCheckout();
-              }}
-            >
-              Add to Favorites
-            </Button>
-          </Grid.Col>
-          <Grid.Col span={5}>
-            <p>Your Favorites summary</p>
-            <Table>
-              <tbody>
-                {cart ? (
-                  cart.map((c) => {
-                    return (
-                      <tr key={c._id}>
-                        <td
-                          style={{
-                            borderTop: "none",
-                          }}
-                        >
-                          {c.image && c.image !== "" ? (
-                            <>
+              <TextInput
+                value={email}
+                placeholder="Email address"
+                label="Email"
+                required
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <Space h="20px" />
+              <Button
+                fullWidth
+                onClick={() => {
+                  doCheckout();
+                }}
+              >
+                Add to Favorites
+              </Button>
+            </Grid.Col>
+            <Grid.Col span={5}>
+              <Text size={"20px"} fw={500}>
+                Your Favorites Summary
+              </Text>
+              <Table>
+                <tbody>
+                  {cart ? (
+                    cart.map((c) => {
+                      return (
+                        <tr key={c._id}>
+                          <td
+                            style={{
+                              borderTop: "none",
+                            }}
+                          >
+                            {c.image && c.image !== "" ? (
+                              <>
+                                <Image
+                                  src={"http://localhost:5000/" + c.image}
+                                  width="100px"
+                                />
+                              </>
+                            ) : (
                               <Image
-                                src={"http://localhost:5000/" + c.image}
+                                src={
+                                  "https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
+                                }
                                 width="100px"
                               />
-                            </>
-                          ) : (
-                            <Image
-                              src={
-                                "https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
-                              }
-                              width="100px"
-                            />
-                          )}
-                        </td>
-                        <td
-                          style={{
-                            borderTop: "none",
-                          }}
-                        >
-                          {" "}
-                          {c.name}
-                        </td>
-                        <td
-                          style={{
-                            borderTop: "none",
-                          }}
-                        >
-                          {c.quality}
-                        </td>
-                      </tr>
-                    );
-                  })
-                ) : (
-                  <tr>
-                    <td colSpan={6}>No Characters/Weapons Add Yet!</td>
-                  </tr>
-                )}
-              </tbody>
-            </Table>
-          </Grid.Col>
-        </Grid>
-      </Container>
+                            )}
+                          </td>
+                          <td
+                            style={{
+                              borderTop: "none",
+                            }}
+                          >
+                            <Text size={"20px"}> {c.name}</Text>
+                          </td>
+                          <td
+                            style={{
+                              borderTop: "none",
+                            }}
+                          >
+                            {c.quality}
+                          </td>
+                        </tr>
+                      );
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan={6}>No Characters/Weapons Add Yet!</td>
+                    </tr>
+                  )}
+                </tbody>
+              </Table>
+            </Grid.Col>
+          </Grid>
+        </Container>
+      </MantineProvider>
+      <Space h="50px" />
+      <Footer />
     </>
   );
 }

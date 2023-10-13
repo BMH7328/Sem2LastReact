@@ -1,7 +1,14 @@
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { useMemo } from "react";
-import { Container, Table, Button, Space, Image, Group } from "@mantine/core";
-import { Link } from "react-router-dom";
+import {
+  Container,
+  Table,
+  Text,
+  Button,
+  Space,
+  Image,
+  Group,
+  MantineProvider,
+} from "@mantine/core";
 import Header from "../Header";
 import Footer from "../Footer";
 import { fetchFavorites, deleteFavorites } from "../api/favorite";
@@ -16,14 +23,6 @@ export default function Favorites() {
     queryKey: ["favorites"],
     queryFn: () => fetchFavorites(currentUser ? currentUser.token : ""),
   });
-
-  const isAdmin = useMemo(() => {
-    return cookies &&
-      cookies.currentUser &&
-      cookies.currentUser.role === "admin"
-      ? true
-      : false;
-  }, [cookies]);
 
   const deleteMutation = useMutation({
     mutationFn: deleteFavorites,
@@ -41,90 +40,123 @@ export default function Favorites() {
     <>
       <Header title="My Favorites" page="favorites" />
       <Container size="90%">
-        <Space h="35px" />
-        <Table horizontalSpacing="xl" striped>
-          <thead>
-            <tr>
-              <th>Users</th>
-              <th>Characters</th>
-              <th>Weapons</th>
-              <th>Date Added</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {favorites
-              ? favorites.map((o) => {
-                  return (
-                    <tr key={o._id}>
-                      <td width={"200px"}>
-                        {o.userName}
-                        <br />({o.userEmail})
-                      </td>
-                      <td width={"1000px"}>
-                        {o.characters
-                          ? o.characters.map((favorite, index) => (
-                              <div key={index}>
-                                <Group>
-                                  {favorite.image && favorite.image !== "" ? (
-                                    <>
+        <MantineProvider
+          theme={{
+            fontFamily: "Rajdhani, sans-serif",
+          }}
+        >
+          <Space h="50px" />
+          <Table horizontalSpacing="xl" striped>
+            <thead>
+              <tr>
+                <th>
+                  <Text size={"20px"}>Users</Text>
+                </th>
+                <th>
+                  <Text size={"20px"}>Characters</Text>
+                </th>
+
+                <th>
+                  <Text size={"20px"}>Weapons</Text>
+                </th>
+
+                <th>
+                  <Text size={"20px"}>Date Added</Text>
+                </th>
+                <th>
+                  <Text size={"20px"}>Actions</Text>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {favorites
+                ? favorites.map((o) => {
+                    return (
+                      <tr key={o._id}>
+                        <td width={"200px"}>
+                          <Text weight={500} size={"20px"}>
+                            {o.userName}
+                            <br />({o.userEmail})
+                          </Text>
+                        </td>
+                        <td>
+                          {o.characters
+                            ? o.characters.map((favorite, index) => (
+                                <div key={index}>
+                                  <Group position="apart">
+                                    {favorite.image && favorite.image !== "" ? (
+                                      <>
+                                        <Image
+                                          src={
+                                            "http://localhost:5000/" +
+                                            favorite.image
+                                          }
+                                          width="150px"
+                                        />
+                                      </>
+                                    ) : (
                                       <Image
                                         src={
-                                          "http://localhost:5000/" +
-                                          favorite.image
+                                          "https://www.aachifoods.com/templates/default-new/images/no-prd.jpg"
                                         }
-                                        width="200px"
+                                        width="100px"
                                       />
-                                    </>
-                                  ) : (
-                                    <Image
-                                      src={
-                                        "https://www.aachifoods.com/templates/default-new/images/no-prd.jpg"
-                                      }
-                                      width="100px"
-                                    />
-                                  )}
-                                  <p>{favorite.name}</p>
-                                </Group>
-                              </div>
-                            ))
-                          : null}
-                      </td>
-                      <td width={"1000px"}>
-                        {o.weapons
-                          ? o.weapons.map((favorite, index) => (
-                              <div key={index}>
-                                <Group>
-                                  {favorite.image && favorite.image !== "" ? (
-                                    <>
+                                    )}
+                                    <p>
+                                      <Text size={"20px"} weight={500}>
+                                        {favorite.name}
+                                      </Text>
+                                    </p>
+                                  </Group>
+                                </div>
+                              ))
+                            : null}
+                        </td>
+                        <td>
+                          {o.weapons
+                            ? o.weapons.map((favorite, index) => (
+                                <div key={index}>
+                                  <Group position="apart">
+                                    {favorite.image && favorite.image !== "" ? (
+                                      <>
+                                        <Image
+                                          src={
+                                            "http://localhost:5000/" +
+                                            favorite.image
+                                          }
+                                          width="200px"
+                                        />
+                                      </>
+                                    ) : (
                                       <Image
                                         src={
-                                          "http://localhost:5000/" +
-                                          favorite.image
+                                          "https://www.aachifoods.com/templates/default-new/images/no-prd.jpg"
                                         }
-                                        width="200px"
+                                        width="100px"
                                       />
-                                    </>
-                                  ) : (
-                                    <Image
-                                      src={
-                                        "https://www.aachifoods.com/templates/default-new/images/no-prd.jpg"
-                                      }
-                                      width="100px"
-                                    />
-                                  )}
-                                  <p>{favorite.name}</p>
-                                </Group>
-                              </div>
-                            ))
-                          : null}
-                      </td>
-                      <td width={"500px"}>{o.date_add}</td>
-                      <td width={"200px"}>
-                        {isAdmin && (
+                                    )}
+                                    <p>
+                                      <Text size={"20px"} weight={500}>
+                                        {favorite.name}
+                                      </Text>
+                                    </p>
+                                  </Group>
+                                </div>
+                              ))
+                            : null}
+                        </td>
+                        <td>
+                          <Text weight={500}>{o.date_add}</Text>
+                        </td>
+                        <td>
                           <Button
-                            variant="outline"
-                            color="red"
+                            sx={{
+                              backgroundColor: "#FFFFFF",
+                              color: "black",
+                              border: "2px solid red",
+                              "&:hover": { backgroundColor: "#FF0000" },
+                            }}
                             onClick={() => {
                               deleteMutation.mutate({
                                 id: o._id,
@@ -134,19 +166,14 @@ export default function Favorites() {
                           >
                             Delete
                           </Button>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })
-              : null}
-          </tbody>
-        </Table>
-        <Group position="center">
-          <Button component={Link} to="/">
-            Continue to check more information...
-          </Button>
-        </Group>
+                        </td>
+                      </tr>
+                    );
+                  })
+                : null}
+            </tbody>
+          </Table>
+        </MantineProvider>
       </Container>
       <Space h="50px" />
       <Footer />

@@ -10,8 +10,9 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useMutation } from "@tanstack/react-query";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../Header";
+import Footer from "../Footer";
 import { useState } from "react";
 import { registerUser } from "../api/auth";
 import { notifications } from "@mantine/notifications";
@@ -69,8 +70,7 @@ export default function Signup() {
     <>
       <Header title="Sign Up A New Account" page="signup" />
       <Container size="100%">
-        <Space h="50px" />
-        <Space h="50px" />
+        <Space h="100px" />
         <Card
           withBorder
           shadow="lg"
@@ -125,19 +125,9 @@ export default function Signup() {
             <Button onClick={handleSubmit}>Submit</Button>
           </Group>
         </Card>
-        <Space h="20px" />
-        <Group position="center">
-          <Button
-            component={Link}
-            to="/"
-            variant="subtle"
-            size="xs"
-            color="gray"
-          >
-            Go back to Home
-          </Button>
-        </Group>
+        <Space h="100px" />
       </Container>
+      <Footer />
     </>
   );
 }

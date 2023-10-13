@@ -6,10 +6,11 @@ import {
 } from "../api/cart";
 import Header from "../Header";
 import Footer from "../Footer";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { notifications } from "@mantine/notifications";
 import { Link } from "react-router-dom";
 import {
+  Text,
   Table,
   Space,
   Grid,
@@ -18,6 +19,7 @@ import {
   Image,
   Checkbox,
   Container,
+  MantineProvider,
 } from "@mantine/core";
 
 export default function Cart() {
@@ -42,10 +44,6 @@ export default function Cart() {
       setCheckAll(false);
     },
   });
-
-  // console.log(queryClient.getQueryData(["cart"]));
-  // console.log(getCartItems());
-  // console.log(cart);
 
   const checkBoxAll = (event) => {
     if (event.target.checked) {
@@ -93,101 +91,129 @@ export default function Cart() {
 
   return (
     <>
-      <Header title="Cart" page="cart" />
+      <Header title="Cart" page="favoritecart" />
       <Container size="90%">
         <Space h="20px" />
         <Group position="center">
           <Grid>
-            <Table highlightOnHover>
-              <thead>
-                <tr>
-                  <th>
-                    <Checkbox
-                      type="checkbox"
-                      checked={checkAll}
-                      disabled={cart && cart.length > 0 ? false : true}
-                      onChange={(event) => {
-                        checkBoxAll(event);
-                      }}
-                    />
-                  </th>
-                  <th>Items</th>
-                  <th></th>
-                  <th>Quality</th>
-                  <th>
-                    <Group position="right">Actions</Group>
-                  </th>
-                </tr>
-              </thead>{" "}
-              <tbody>
-                {cart ? (
-                  cart.map((cart) => {
-                    return (
-                      <tr key={cart._id}>
-                        <td>
-                          <Checkbox
-                            checked={
-                              checkedList && checkedList.includes(cart._id)
-                                ? true
-                                : false
-                            }
-                            type="checkbox"
-                            onChange={(event) => {
-                              checkboxOne(event, cart._id);
-                            }}
-                          />
-                        </td>
-                        <td>
-                          {cart.image && cart.image !== "" ? (
-                            <>
-                              <Image
-                                src={"http://localhost:5000/" + cart.image}
-                                width="200px"
-                              />
-                            </>
-                          ) : (
-                            <Image
-                              src={
-                                "https://www.aachifoods.com/templates/default-new/images/no-prd.jpg"
-                              }
-                              width="100px"
-                            />
-                          )}
-                        </td>
-                        <td> {cart.name}</td>
-                        <td>{cart.quality}</td>
+            <MantineProvider
+              theme={{
+                fontFamily: "Rajdhani, sans-serif",
+              }}
+            >
+              <Table highlightOnHover>
+                <thead>
+                  <tr>
+                    <th>
+                      <Checkbox
+                        type="checkbox"
+                        checked={checkAll}
+                        disabled={cart && cart.length > 0 ? false : true}
+                        onChange={(event) => {
+                          checkBoxAll(event);
+                        }}
+                      />
+                    </th>
 
-                        <td>
-                          <Group position="right">
-                            <Button
-                              color="red"
-                              size="xs"
-                              radius="50px"
-                              onClick={() => {
-                                deleteMutation.mutate(cart._id);
+                    <th>
+                      <Text size={"20px"}>Characters/Weapons</Text>
+                    </th>
+                    <th></th>
+                    <th>
+                      <Text size={"20px"}>Quality</Text>
+                    </th>
+                    <th>
+                      <Group position="right">
+                        <Text size={"20px"}>Actions</Text>
+                      </Group>
+                    </th>
+                  </tr>
+                </thead>{" "}
+                <tbody>
+                  {cart ? (
+                    cart.map((cart) => {
+                      return (
+                        <tr key={cart._id}>
+                          <td>
+                            <Checkbox
+                              checked={
+                                checkedList && checkedList.includes(cart._id)
+                                  ? true
+                                  : false
+                              }
+                              type="checkbox"
+                              onChange={(event) => {
+                                checkboxOne(event, cart._id);
                               }}
-                            >
-                              Remove
-                            </Button>
-                          </Group>
-                        </td>
-                      </tr>
-                    );
-                  })
-                ) : (
-                  <Grid.Col className="mt-5">
-                    <Space h="120px" />
-                    <h1 className="text-center text-muted">Empty Cart .</h1>
-                  </Grid.Col>
-                )}
-                <tr></tr>
-              </tbody>
-            </Table>
+                            />
+                          </td>
+                          <td>
+                            {cart.image && cart.image !== "" ? (
+                              <>
+                                <Image
+                                  src={"http://localhost:5000/" + cart.image}
+                                  width="200px"
+                                />
+                              </>
+                            ) : (
+                              <Image
+                                src={
+                                  "https://www.aachifoods.com/templates/default-new/images/no-prd.jpg"
+                                }
+                                width="100px"
+                              />
+                            )}
+                          </td>
+
+                          <td>
+                            {" "}
+                            <Text size={"20px"} weight={500}>
+                              {cart.name}
+                            </Text>
+                          </td>
+                          <td>
+                            <Text size={"20px"} weight={500}>
+                              {cart.quality}
+                            </Text>
+                          </td>
+
+                          <td>
+                            <Group position="right">
+                              <Button
+                                sx={{
+                                  backgroundColor: "#FFFFFF",
+                                  color: "black",
+                                  border: "2px solid red",
+                                  "&:hover": { backgroundColor: "#FF0000" },
+                                }}
+                                size="xs"
+                                onClick={() => {
+                                  deleteMutation.mutate(cart._id);
+                                }}
+                              >
+                                Remove
+                              </Button>
+                            </Group>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  ) : (
+                    <Grid.Col className="mt-5">
+                      <Space h="120px" />
+                      <h1 className="text-center text-muted">Empty Cart .</h1>
+                    </Grid.Col>
+                  )}
+                  <tr></tr>
+                </tbody>
+              </Table>
+            </MantineProvider>
           </Grid>
         </Group>
+
         <Group position="apart">
           <Button
-            variant="danger"
+            color="red"
             disabled={checkedList && checkedList.length > 0 ? false : true}
             onClick={(event) => {
               event.preventDefault();
@@ -205,6 +231,7 @@ export default function Cart() {
           </Button>
         </Group>
       </Container>
+      {/* </MantineProvider> */}
       <Space h="50px" />
       <Footer />
     </>

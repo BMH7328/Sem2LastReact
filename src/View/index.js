@@ -1,13 +1,14 @@
 import {
-  Container,
   Title,
+  Text,
   Space,
   Card,
-  Divider,
+  Container,
   Button,
   Group,
   Image,
-  Grid,
+  BackgroundImage,
+  MantineProvider,
 } from "@mantine/core";
 import Footer from "../Footer";
 import { Link, useParams, useNavigate } from "react-router-dom";
@@ -34,6 +35,7 @@ function CharactersView() {
   const [releaseDate, setReleaseDate] = useState("");
   const [image, setImage] = useState("");
   const [detail, setDetail] = useState("");
+  const [constellation, setConstellation] = useState("");
   const [uploading, setUploading] = useState(false);
   const { isLoading } = useQuery({
     queryKey: ["character", id],
@@ -49,6 +51,7 @@ function CharactersView() {
       setReleaseDate(data.release_date);
       setImage(data.image);
       setDetail(data.detail);
+      setConstellation(data.constellation);
     },
   });
 
@@ -88,80 +91,129 @@ function CharactersView() {
 
   return (
     <>
-      <Grid>
-        <Grid.Col>
-          <Card withBorder shadow="lg" px="400px" py="100px">
-            Release On: {releaseDate}
+      <Space h="20px" />
+      <Container size="800px">
+        <Card withBorder shadow="lg" mx={"auto"}>
+          <MantineProvider
+            theme={{
+              fontFamily: "Raleway, sans-serif",
+            }}
+          >
+            <Title align="center" size={"70px"} weight={200}>
+              {name}
+            </Title>
+          </MantineProvider>
+          <br />
+
+          <MantineProvider theme={{ fontFamily: "Teko, sans-serif" }}>
+            <Text align="center" size={"40px"}>
+              Release On: {releaseDate}
+            </Text>
             <br />
-            Name: {name}
+            <Text align="center" size={"40px"}>
+              Birthday: {birthday}
+            </Text>
             <br />
-            Birthday: {birthday}
+            <Text align="center" size={"40px"}>
+              Quality: {quality}
+            </Text>
+          </MantineProvider>
+          <br />
+          <Image
+            src={"http://localhost:5000/" + image}
+            width="500px"
+            mx={"auto"}
+          />
+          <br />
+          <br />
+          <MantineProvider theme={{ fontFamily: "Teko, sans-serif" }}>
+            <Text align="center" size={"40px"}>
+              Constellation: {constellation}
+            </Text>
             <br />
-            Quality: {quality}
-            <Image
-              src={"http://localhost:5000/" + image}
-              width="500px"
-              mx={"auto"}
-            />
             <br />
-            Details: {detail}
+            <Text align="center" size={"30px"}>
+              Details: {detail}
+            </Text>
             <br />
             <br />
-            Element: {element.name}
-            <br />
-            Region: {region.name}
-            <br />
-            Weapon Type: {weapontype.name}
-            <Group position="center">
-              <Button
-                mx={"auto"}
-                size="lg"
-                onClick={() => {
-                  // pop a messsage if user is not logged in
-                  if (cookies && cookies.currentUser) {
-                    addToCartMutation.mutate(character);
-                  } else {
-                    notifications.show({
-                      title: "Please login to proceed",
-                      message: (
-                        <>
-                          <Button
-                            color="red"
-                            onClick={() => {
-                              navigate("/login");
-                              notifications.clean();
-                            }}
-                          >
-                            Click here to login
-                          </Button>
-                        </>
-                      ),
-                      color: "red",
-                    });
-                  }
-                }}
-              >
-                {" "}
-                Add To Cart
-              </Button>
+            <Group position="apart">
+              <Text align="center" size={"40px"}>
+                Element: {element.name}
+              </Text>
+              <Text align="center" size={"40px"}>
+                Region: {region.name}
+              </Text>
+              <Text align="center" size={"40px"}>
+                Weapon Type: {weapontype.name}
+              </Text>
             </Group>
-            {isAdmin && (
-              <>
-                <Space h="20px" />
-                <Group position="apart">
+            <Space h="20px" />
+          </MantineProvider>
+
+          <Group position="center">
+            <Button
+              mx={"auto"}
+              size="md"
+              onClick={() => {
+                // pop a messsage if user is not logged in
+                if (cookies && cookies.currentUser) {
+                  addToCartMutation.mutate(character);
+                } else {
+                  notifications.show({
+                    title: "Please login to proceed",
+                    message: (
+                      <>
+                        <Button
+                          color="red"
+                          onClick={() => {
+                            navigate("/login");
+                            notifications.clean();
+                          }}
+                        >
+                          Click here to login
+                        </Button>
+                      </>
+                    ),
+                    color: "red",
+                  });
+                }
+              }}
+            >
+              {" "}
+              Add To Cart
+            </Button>
+          </Group>
+          {isAdmin && (
+            <>
+              <Space h="20px" />
+              <Group position="apart">
+                <MantineProvider
+                  theme={{
+                    fontFamily: "Rajdhani, sans-serif",
+                  }}
+                >
                   <Button
                     component={Link}
                     to={"/characters/" + id}
-                    color="blue"
-                    size="xs"
-                    radius="50px"
+                    size="sm"
+                    sx={{
+                      color: "white",
+                      border: "1px solid black",
+                      background: "8" ? "black" : "none",
+                      "&:hover": { backgroundColor: "#808080" },
+                    }}
                   >
                     Edit
                   </Button>
                   <Button
-                    color="red"
-                    size="xs"
-                    radius="50px"
+                    sx={{
+                      backgroundColor: "#FFFFFF",
+                      color: "black",
+                      border: "2px solid red",
+                      "&:hover": { backgroundColor: "#FF0000" },
+                    }}
+                    size="md"
                     onClick={() => {
                       deleteMutation.mutate({
                         id: id,
@@ -171,23 +223,25 @@ function CharactersView() {
                   >
                     Delete
                   </Button>
-                </Group>
-                <Group position="center">
-                  <Button
-                    component={Link}
-                    to="/"
-                    variant="gradient"
-                    size="xs"
-                    gradient={{ from: "blue", to: "purple", deg: 105 }}
-                  >
-                    Go back to Home
-                  </Button>
-                </Group>
-              </>
-            )}
-          </Card>
-        </Grid.Col>
-      </Grid>
+                </MantineProvider>
+              </Group>
+            </>
+          )}
+        </Card>
+      </Container>
+      <Space h="50px" />
+      <Group position="center">
+        <Button
+          component={Link}
+          to="/"
+          variant="gradient"
+          size="xs"
+          gradient={{ from: "blue", to: "purple", deg: 105 }}
+        >
+          Go back to Home
+        </Button>
+      </Group>
+      <Space h="50px" />
       <Footer />
     </>
   );

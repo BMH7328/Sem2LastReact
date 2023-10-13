@@ -6,9 +6,10 @@ function Home() {
   return (
     <>
       <div>
-        <Header title="Genshin Wiki Replica" page="home" />
+        <Header title="Genshin Wiki" page="home" />
 
         <Image src="/image/Aether.mondstadt.jpg" />
+        <Image src="/image/GenshinBackGround.jpg" />
       </div>
       <Footer />
     </>
