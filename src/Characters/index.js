@@ -313,7 +313,7 @@ function Characters() {
                     <Grid.Col key={character._id} lg={4} md={6} sm={6} xs={12}>
                       <Card withBorder shadow="sm" p="20px" mx={"auto"}>
                         <Image
-                          src={"10.1.104.2:5000/" + character.image}
+                          src={"http://10.1.104.2:5000/" + character.image}
                           width="300px"
                           alt={character.name}
                           mx={"auto"}

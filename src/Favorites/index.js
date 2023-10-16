@@ -89,7 +89,8 @@ export default function Favorites() {
                                       <>
                                         <Image
                                           src={
-                                            "10.1.104.2:5000/" + favorite.image
+                                            "http://10.1.104.2:5000/" +
+                                            favorite.image
                                           }
                                           width="150px"
                                         />
@@ -121,7 +122,8 @@ export default function Favorites() {
                                       <>
                                         <Image
                                           src={
-                                            "10.1.104.2:5000/" + favorite.image
+                                            "http://10.1.104.2:5000/" +
+                                            favorite.image
                                           }
                                           width="200px"
                                         />

@@ -104,7 +104,7 @@ export default function Regions() {
                         {region.image && region.image !== "" ? (
                           <>
                             <Image
-                              src={"10.1.104.2:5000/" + region.image}
+                              src={"http://10.1.104.2:5000/" + region.image}
                               width="500px"
                             />
                           </>

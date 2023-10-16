@@ -157,7 +157,7 @@ export default function Checkout() {
                             {c.image && c.image !== "" ? (
                               <>
                                 <Image
-                                  src={"10.1.104.2:5000/" + c.image}
+                                  src={"http://10.1.104.2:5000/" + c.image}
                                   width="100px"
                                 />
                               </>

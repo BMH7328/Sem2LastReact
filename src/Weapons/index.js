@@ -258,7 +258,7 @@ function Weapons() {
                           </Text>
                         </MantineProvider>
                         <Image
-                          src={"10.1.104.2:5000/" + weapon.image}
+                          src={"http://10.1.104.2:5000/" + weapon.image}
                           width="300px"
                           alt={weapon.name}
                           mx={"auto"}

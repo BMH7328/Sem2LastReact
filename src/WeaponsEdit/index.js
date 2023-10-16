@@ -156,7 +156,10 @@ function WeaponsEdit() {
               <Grid.Col>
                 {image && image !== "" ? (
                   <>
-                    <Image src={"10.1.104.2:5000/" + image} width="100%" />
+                    <Image
+                      src={"http://10.1.104.2:5000/" + image}
+                      width="100%"
+                    />
                     <Button color="dark" mt="15px" onClick={() => setImage("")}>
                       Remove Image
                     </Button>

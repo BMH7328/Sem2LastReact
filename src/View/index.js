@@ -121,7 +121,11 @@ function CharactersView() {
             </Text>
           </MantineProvider>
           <br />
-          <Image src={"10.1.104.2:5000/" + image} width="500px" mx={"auto"} />
+          <Image
+            src={"http://10.1.104.2:5000/" + image}
+            width="500px"
+            mx={"auto"}
+          />
           <br />
           <br />
           <MantineProvider theme={{ fontFamily: "Teko, sans-serif" }}>

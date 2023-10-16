@@ -107,7 +107,7 @@ export default function Elements() {
                         {element.image && element.image !== "" ? (
                           <>
                             <Image
-                              src={"10.1.104.2:5000/" + element.image}
+                              src={"http://10.1.104.2:5000/" + element.image}
                               width="100px"
                             />
                           </>
