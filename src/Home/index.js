@@ -9,7 +9,7 @@ function Home() {
         <Header title="Genshin Wiki" page="home" />
 
         <Image src="/image/Aether.mondstadt.jpg" />
-        <Image src="/image/GenshinBackGround.jpg" />
+        <Image src="/image/GenshinBackground.jpg" />
       </div>
       <Footer />
     </>
