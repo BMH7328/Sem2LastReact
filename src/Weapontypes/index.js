@@ -107,7 +107,7 @@ export default function Weapontypes() {
                         {weapontype.image && weapontype.image !== "" ? (
                           <>
                             <Image
-                              src={"http://localhost:5000/" + weapontype.image}
+                              src={"10.1.104.2:5000/" + weapontype.image}
                               width="200px"
                             />
                           </>

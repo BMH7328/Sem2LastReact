@@ -189,10 +189,7 @@ function CharactersAdd() {
               <Grid.Col>
                 {image && image !== "" ? (
                   <>
-                    <Image
-                      src={"http://localhost:5000/" + image}
-                      width="100%"
-                    />
+                    <Image src={"10.1.104.2:5000/" + image} width="100%" />
                     <Button color="dark" mt="15px" onClick={() => setImage("")}>
                       Remove Image
                     </Button>
