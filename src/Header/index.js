@@ -178,8 +178,7 @@ export default function Header({ title, page = "" }) {
                         // clear the currentUser cookie to logout
                         removeCookies("currentUser");
                         clearCartItems();
-                        // navigate("/");
-                        window.location.reload();
+                        window.location = "/";
                       }}
                     >
                       Logout

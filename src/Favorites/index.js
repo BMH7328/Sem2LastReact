@@ -14,7 +14,6 @@ import Footer from "../Footer";
 import { fetchFavorites, deleteFavorites } from "../api/favorite";
 import { notifications } from "@mantine/notifications";
 import { useCookies } from "react-cookie";
-import { useState, useEffect } from "react";
 
 export default function Favorites() {
   const [cookies] = useCookies(["currentUser"]);
